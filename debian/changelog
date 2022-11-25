@@ -1,5 +1,17 @@
+php-rdkafka (5.0.0+4.1.2-1) unstable; urgency=medium
+
+  * Release for version 5.0.0
+   - PHP 8 support (@nick-zh, @arnaud-lb)
+   - Suport passing an opaque value in produce(), producev() (@arnaud-lb)
+   - Dropped PHP 5 support
+  * Release for version 4.1.2
+   - Enabled features on windows build: headers, purge, murmur (#410, @nick-zh, @cmb69)
+
+ -- Vadim Rybalko <vadim@bionicman.name>  Fri, 25 Nov 2022 17:01:04 +0200
+
 php-rdkafka (4.1.2-1) stable; urgency=medium
 
   * Release for version 4.1.2
+   - Enabled features on windows build: headers, purge, murmur (#410, @nick-zh, @cmb69)
 
  -- Vadim Rybalko <vadim@bionicman.name>  Fri, 25 Nov 2022 16:01:22 +0200
