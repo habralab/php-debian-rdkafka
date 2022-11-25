@@ -1,64 +1,63 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: aee362c9762bd72d620b36f1e5686d96e09b9cac */
+ * Stub hash: 47e9238c79f5508833423d31a2e09041754dbffb */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer___construct, 0, 0, 1)
-	ZEND_ARG_OBJ_INFO(0, conf, RdKafka\\Conf, 0)
+	ZEND_ARG_INFO(0, conf)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_assign, 0, 0, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, topic_partitions, IS_ARRAY, 1, "null")
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_assign, 0, 0, 0)
+	ZEND_ARG_INFO(0, topic_partitions)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getAssignment, 0, 0, IS_ARRAY, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getAssignment, 0, 0, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_commit, 0, 0, IS_VOID, 0)
-	ZEND_ARG_OBJ_TYPE_MASK(0, message_or_offsets, RdKafka\\Message, MAY_BE_ARRAY|MAY_BE_NULL, "null")
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_commit, 0, 0, 0)
+	ZEND_ARG_INFO(0, message_or_offsets)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_close, 0, 0, IS_VOID, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_RdKafka_KafkaConsumer_close arginfo_class_RdKafka_KafkaConsumer_getAssignment
 
 #define arginfo_class_RdKafka_KafkaConsumer_commitAsync arginfo_class_RdKafka_KafkaConsumer_commit
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_OBJ_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_consume, 0, 1, RdKafka\\Message, 0)
-	ZEND_ARG_TYPE_INFO(0, timeout_ms, IS_LONG, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_consume, 0, 0, 1)
+	ZEND_ARG_INFO(0, timeout_ms)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_subscribe, 0, 1, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, topics, IS_ARRAY, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_subscribe, 0, 0, 1)
+	ZEND_ARG_INFO(0, topics)
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_RdKafka_KafkaConsumer_getSubscription arginfo_class_RdKafka_KafkaConsumer_getAssignment
 
-#define arginfo_class_RdKafka_KafkaConsumer_unsubscribe arginfo_class_RdKafka_KafkaConsumer_close
+#define arginfo_class_RdKafka_KafkaConsumer_unsubscribe arginfo_class_RdKafka_KafkaConsumer_getAssignment
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_OBJ_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getMetadata, 0, 3, RdKafka\\Metadata, 0)
-	ZEND_ARG_TYPE_INFO(0, all_topics, _IS_BOOL, 0)
-	ZEND_ARG_OBJ_INFO(0, only_topic, RdKafka\\Topic, 0)
-	ZEND_ARG_TYPE_INFO(0, timeout_ms, IS_LONG, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getMetadata, 0, 0, 3)
+	ZEND_ARG_INFO(0, all_topics)
+	ZEND_ARG_INFO(0, only_topic)
+	ZEND_ARG_INFO(0, timeout_ms)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_OBJ_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_newTopic, 0, 1, RdKafka\\KafkaConsumerTopic, 0)
-	ZEND_ARG_TYPE_INFO(0, topic_name, IS_STRING, 0)
-	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, topic_conf, RdKafka\\TopicConf, 1, "null")
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_newTopic, 0, 0, 1)
+	ZEND_ARG_INFO(0, topic_name)
+	ZEND_ARG_INFO(0, topic_conf)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getCommittedOffsets, 0, 2, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0, topic_partitions, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0, timeout_ms, IS_LONG, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getCommittedOffsets, 0, 0, 2)
+	ZEND_ARG_INFO(0, topic_partitions)
+	ZEND_ARG_INFO(0, timeout_ms)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getOffsetPositions, 0, 1, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0, topic_partitions, IS_ARRAY, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_getOffsetPositions, 0, 0, 1)
+	ZEND_ARG_INFO(0, topic_partitions)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_queryWatermarkOffsets, 0, 5, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, topic, IS_STRING, 0)
-	ZEND_ARG_TYPE_INFO(0, partition, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(1, low, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(1, high, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, timeout_ms, IS_LONG, 0)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_KafkaConsumer_queryWatermarkOffsets, 0, 0, 5)
+	ZEND_ARG_INFO(0, topic)
+	ZEND_ARG_INFO(0, partition)
+	ZEND_ARG_INFO(1, low)
+	ZEND_ARG_INFO(1, high)
+	ZEND_ARG_INFO(0, timeout_ms)
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_RdKafka_KafkaConsumer_offsetsForTimes arginfo_class_RdKafka_KafkaConsumer_getCommittedOffsets
@@ -118,21 +117,21 @@ static zend_class_entry *register_class_RdKafka_KafkaConsumer(void)
 	class_entry = zend_register_internal_class_ex(&ce, NULL);
 
 	zval property_error_cb_default_value;
-	ZVAL_UNDEF(&property_error_cb_default_value);
+	ZVAL_NULL(&property_error_cb_default_value);
 	zend_string *property_error_cb_name = zend_string_init("error_cb", sizeof("error_cb") - 1, 1);
-	zend_declare_typed_property(class_entry, property_error_cb_name, &property_error_cb_default_value, ZEND_ACC_PRIVATE, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_CALLABLE|MAY_BE_NULL));
+	zend_declare_property_ex(class_entry, property_error_cb_name, &property_error_cb_default_value, ZEND_ACC_PRIVATE, NULL);
 	zend_string_release(property_error_cb_name);
 
 	zval property_rebalance_cb_default_value;
-	ZVAL_UNDEF(&property_rebalance_cb_default_value);
+	ZVAL_NULL(&property_rebalance_cb_default_value);
 	zend_string *property_rebalance_cb_name = zend_string_init("rebalance_cb", sizeof("rebalance_cb") - 1, 1);
-	zend_declare_typed_property(class_entry, property_rebalance_cb_name, &property_rebalance_cb_default_value, ZEND_ACC_PRIVATE, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_CALLABLE|MAY_BE_NULL));
+	zend_declare_property_ex(class_entry, property_rebalance_cb_name, &property_rebalance_cb_default_value, ZEND_ACC_PRIVATE, NULL);
 	zend_string_release(property_rebalance_cb_name);
 
 	zval property_dr_msg_cb_default_value;
-	ZVAL_UNDEF(&property_dr_msg_cb_default_value);
+	ZVAL_NULL(&property_dr_msg_cb_default_value);
 	zend_string *property_dr_msg_cb_name = zend_string_init("dr_msg_cb", sizeof("dr_msg_cb") - 1, 1);
-	zend_declare_typed_property(class_entry, property_dr_msg_cb_name, &property_dr_msg_cb_default_value, ZEND_ACC_PRIVATE, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_CALLABLE|MAY_BE_NULL));
+	zend_declare_property_ex(class_entry, property_dr_msg_cb_name, &property_dr_msg_cb_default_value, ZEND_ACC_PRIVATE, NULL);
 	zend_string_release(property_dr_msg_cb_name);
 
 	return class_entry;
