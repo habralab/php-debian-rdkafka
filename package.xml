@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.10.5" version="2.1" xmlns="http://pear.php.net/dtd/package-2.1" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.1     http://pear.php.net/dtd/package-2.1.xsd">
+<package packagerversion="1.10.12" version="2.1" xmlns="http://pear.php.net/dtd/package-2.1" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.1     http://pear.php.net/dtd/package-2.1.xsd">
  <name>rdkafka</name>
  <channel>pecl.php.net</channel>
  <summary>Kafka client based on librdkafka</summary>
@@ -10,10 +10,10 @@
   <email>arnaud.lb@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2021-01-14</date>
- <time>11:46:16</time>
+ <date>2021-11-19</date>
+ <time>13:56:29</time>
  <version>
-  <release>5.0.0</release>
+  <release>5.0.1</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -23,11 +23,12 @@
  <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
  <notes>
 ## Enhancements
-- PHP 8 support (@nick-zh, @arnaud-lb)
-- Suport passing an opaque value in produce(), producev() (@arnaud-lb)
+- Add pausePartitions(), resumePartitions() on RdKfaka, RdKafka\KafkaConsumer (#438, @arnaud-lb)
+- Clarify error when KafkaConsumer is closed (@zoonru)
 
-## Breaking changes
-- Dropped PHP 5 support
+## Bugfixes
+- Fix windows build (#440, @nick-zh)
+- Fix crash in RdKafka\Metadata\Topic::getTopic() (#465, @arnaud-lb)
  </notes>
  <contents>
   <dir name="/">
@@ -44,35 +45,38 @@
    <file md5sum="a0789a1670ec70b1cd99fe0f423ab212" name="tests/conf_setDefaultTopicConf8.phpt" role="test" />
    <file md5sum="61ac9a637c57f83e007426719acd5809" name="tests/conf_setDefaultTopicConf.phpt" role="test" />
    <file md5sum="bbe91ce00fc974aa60e15b0964542bc5" name="tests/constants.phpt" role="test" />
+   <file md5sum="9090ee53394f675dfb9b7a685c92bb54" name="tests/err2name.phpt" role="test" />
    <file md5sum="03f9367f93da96798f92b655320e4cad" name="tests/init_transaction_not_configured.phpt" role="test" />
+   <file md5sum="77c49333cc934b8ddfde07b7aeec8e7b" name="tests/integration-tests-check.php" role="test" />
    <file md5sum="81262cb0944b564b0d1db81bcf18bdd6" name="tests/kafka_error_exception.phpt" role="test" />
-   <file md5sum="d5f37ea16b339de1f3030d147fb7b43c" name="tests/message_headers.phpt" role="test" />
-   <file md5sum="a2828e02e258257ed391085cf638e318" name="tests/produce_consume.phpt" role="test" />
-   <file md5sum="0e40f4801ddf012d68ca545e4e5fc77a" name="tests/produce_consume_queue.phpt" role="test" />
-   <file md5sum="7844f1bd20d332f9b073dd16d1ba95fe" name="tests/produce_consume_transactional.phpt" role="test" />
-   <file md5sum="b537c76a0f647f7b3e3fa16f4568b2c8" name="tests/produce_opaque_noconf.phpt" role="test" />
-   <file md5sum="2e8cc44565fb7af19cdcf6c7a777ff8e" name="tests/produce_opaque_noflush_dr_callback.phpt" role="test" />
-   <file md5sum="fdb336db2f37139ebb0afa080cf87cd7" name="tests/produce_opaque_noflush.phpt" role="test" />
-   <file md5sum="354219ccca4c70ee03914d991dc21e43" name="tests/produce_opaque.phpt" role="test" />
-   <file md5sum="ef7dfa213134b8b3760cc88c1aace557" name="tests/produce_opaque_purge_dr_callback.phpt" role="test" />
-   <file md5sum="6602602f669af1db5f8084e57531d3db" name="tests/produce_opaque_purge.phpt" role="test" />
-   <file md5sum="ebbb985c3b7cc403c3fffb10a150384d" name="tests/producev_opaque.phpt" role="test" />
+   <file md5sum="23a230f9ac61c224c013c2ec49a65621" name="tests/message_headers.phpt" role="test" />
+   <file md5sum="fae84e0b112cb6a8d4ca6253a7fbc9a0" name="tests/pause_resume.phpt" role="test" />
+   <file md5sum="871c3cea4e2a29dbeb95c01a650ad788" name="tests/produce_consume.phpt" role="test" />
+   <file md5sum="5524023d7fac5cfa71b8fd5d095c5f06" name="tests/produce_consume_queue.phpt" role="test" />
+   <file md5sum="4cc8417e414fd685cfe0be7309195da8" name="tests/produce_consume_transactional.phpt" role="test" />
+   <file md5sum="21c38347c980f5e911684661faa4d376" name="tests/produce_opaque_noconf.phpt" role="test" />
+   <file md5sum="a73b41905e9fbe68597a16c6efc54774" name="tests/produce_opaque_noflush_dr_callback.phpt" role="test" />
+   <file md5sum="819a9bbeaddd477ccd3333c89d5b4dae" name="tests/produce_opaque_noflush.phpt" role="test" />
+   <file md5sum="3e6fae4f08d460e43dbf4739ca0cd865" name="tests/produce_opaque.phpt" role="test" />
+   <file md5sum="2c842a9d12ca3b8d9281028a7cacb235" name="tests/produce_opaque_purge_dr_callback.phpt" role="test" />
+   <file md5sum="95c80c10978810ea75f6c542eeb038a3" name="tests/produce_opaque_purge.phpt" role="test" />
+   <file md5sum="9abe40d64514f5023abf8c1b42d63bcb" name="tests/producev_opaque.phpt" role="test" />
    <file md5sum="bba2ce029ebc8cf074b50a43ac355b69" name="tests/rd_kafka_get_err_descs.phpt" role="test" />
    <file md5sum="9151fcc1be3dcb40fe41a7dc17157153" name="tests/test0.phpt" role="test" />
    <file md5sum="0e19f0b7a07e699af81349d720e9a71d" name="tests/topic_conf.phpt" role="test" />
-   <file md5sum="d829d105c256346f05066953f378bf3c" name="tests/topic_partition.phpt" role="test" />
+   <file md5sum="eecc99e24205326104edc84a6b0443f9" name="tests/topic_partition.phpt" role="test" />
    <file md5sum="9f77b1cb29d903194df6369de74aff3c" name="CREDITS" role="doc" />
    <file md5sum="3957792c293a3cd3a4a49ca5c9035ec7" name="LICENSE" role="doc" />
-   <file md5sum="206d1244e6fc3a874ca323709173653b" name="README.md" role="doc" />
+   <file md5sum="48e667c0b2fb0e4dcf653ea7c7df71ca" name="README.md" role="doc" />
    <file md5sum="aee2ec1d3371705db3b1ac5e888f02a3" name="conf.c" role="src" />
    <file md5sum="36cd660b768be203496e570d07c53fd8" name="conf.h" role="src" />
    <file md5sum="557c97e0605bbe393f3fea1ce399580f" name="config.m4" role="src" />
    <file md5sum="e8b92df1fedfae5324b96a5907da521b" name="config.w32" role="src" />
-   <file md5sum="7c59c602b8f975b5975cdc9b3cf2b9da" name="fun.c" role="src" />
+   <file md5sum="60a4dc306e96f0f0ba43db2b27bc2d65" name="fun.c" role="src" />
    <file md5sum="ec80c40b4f2b1a45f65171294ffbac88" name="fun.h" role="src" />
-   <file md5sum="2250d059b9303e3843808d1b89886110" name="kafka_consumer.c" role="src" />
+   <file md5sum="0214db98f7c3e1af3aeff41ec1fa2524" name="kafka_consumer.c" role="src" />
    <file md5sum="fa9974c0d8766440764abbd58a5eedd4" name="kafka_consumer.h" role="src" />
-   <file md5sum="0b14cc184c7c3363a86947fdcd593fe5" name="kafka_error_exception.c" role="src" />
+   <file md5sum="35e7d08a73228865457176c6f516bf90" name="kafka_error_exception.c" role="src" />
    <file md5sum="ec18905d28da69b37ee5c8ae08fd7a65" name="kafka_error_exception.h" role="src" />
    <file md5sum="fd4cc75401d03f138a1586c44e30a99a" name="message.c" role="src" />
    <file md5sum="8e6b42becc91a8729973b5882ad614bb" name="message.h" role="src" />
@@ -80,21 +84,21 @@
    <file md5sum="f9e853d7a6f3b129adde1d286f8fb55a" name="metadata.h" role="src" />
    <file md5sum="6423e0069eca4066b733b59f78901fc6" name="metadata_broker.c" role="src" />
    <file md5sum="4a0da8b7faeb96696ff6b459ed7ab604" name="metadata_broker.h" role="src" />
-   <file md5sum="dd702db4f98e5c84cf31b1c04ca543bb" name="metadata_collection.c" role="src" />
+   <file md5sum="ca7e15d1dda1b0668297346f573797d4" name="metadata_collection.c" role="src" />
    <file md5sum="321d56c194cfdaaa040947f0799bda16" name="metadata_collection.h" role="src" />
    <file md5sum="d6db7458e7d9fc29a0f6f336b359769c" name="metadata_partition.c" role="src" />
    <file md5sum="23604046827735d4fa46359f1465e69e" name="metadata_partition.h" role="src" />
    <file md5sum="9b52e4912dfa0a1722d713f0210d2aa5" name="metadata_topic.c" role="src" />
    <file md5sum="69194dd5df78a86df962b03d97f81388" name="metadata_topic.h" role="src" />
-   <file md5sum="e94b0c3f210340782d7213e727c3e60f" name="php_rdkafka.h" role="src" />
-   <file md5sum="6165005bc539f848ea615719431359c4" name="php_rdkafka_priv.h" role="src" />
+   <file md5sum="94371f3bc53d9dc3927b047b45e2bb77" name="php_rdkafka.h" role="src" />
+   <file md5sum="e81f1d8e582753202ecf1e02bb5f13dd" name="php_rdkafka_priv.h" role="src" />
    <file md5sum="3e33aa84cc791a0db2d619316623aae7" name="queue.c" role="src" />
    <file md5sum="11d9fc6b7ccc2b83e5d9c01e66770b72" name="queue.h" role="src" />
-   <file md5sum="6c221931f85d2f7f132c7799695e6558" name="rdkafka.c" role="src" />
+   <file md5sum="fcb96484eed2b87f28b9477eb4a9ba16" name="rdkafka.c" role="src" />
    <file md5sum="fbed45e61cdeb94d8fdc7b413828d86c" name="topic.c" role="src" />
    <file md5sum="973d55800702d6072eab1ac0aa5800e7" name="topic.h" role="src" />
-   <file md5sum="7b093d624438782e6f1470e7e71c4a3b" name="topic_partition.c" role="src" />
-   <file md5sum="2b967d70faf9ca67dfaab3ca361373c4" name="topic_partition.h" role="src" />
+   <file md5sum="3cb9c617a23ffea96005975f5f751c4c" name="topic_partition.c" role="src" />
+   <file md5sum="78423c304b7febe5cb97f86dfa0865ad" name="topic_partition.h" role="src" />
   </dir>
  </contents>
  <dependencies>
@@ -111,6 +115,27 @@
  <providesextension>rdkafka</providesextension>
  <extsrcrelease />
  <changelog>
+  <release>
+   <date>2021-01-14</date>
+   <time>12:00:00</time>
+   <version>
+    <release>5.0.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+## Enhancements
+- PHP 8 support (@nick-zh, @arnaud-lb)
+- Suport passing an opaque value in produce(), producev() (@arnaud-lb)
+
+## Breaking changes
+- Dropped PHP 5 support
+   </notes>
+  </release>
   <release>
    <date>2020-12-06</date>
    <time>12:00:00</time>

@@ -16,19 +16,44 @@
   +----------------------------------------------------------------------+
 */
 
-typedef struct _kafka_topic_partition_intern {
-    char        *topic;
-    int32_t     partition;
-    int64_t     offset;
-    zend_object std;
-} kafka_topic_partition_intern;
+/* $Id$ */
 
-void kafka_metadata_topic_partition_minit(INIT_FUNC_ARGS);
+#ifndef PHP_RDKAFKA_H
+#define PHP_RDKAFKA_H
 
-kafka_topic_partition_intern * get_topic_partition_object(zval *z);
-void kafka_topic_partition_init(zval *z, char *topic, int32_t partition, int64_t offset);
+#include "librdkafka/rdkafka.h"
+#include "conf.h"
 
-void kafka_topic_partition_list_to_array(zval *return_value, rd_kafka_topic_partition_list_t *list);
-rd_kafka_topic_partition_list_t * array_arg_to_kafka_topic_partition_list(int argnum, HashTable *ary);
+#ifndef PHP_FE_END
+#define PHP_FE_END { NULL, NULL, NULL, 0, 0 }
+#endif
 
-extern zend_class_entry * ce_kafka_topic_partition;
+typedef struct _kafka_object {
+    rd_kafka_type_t         type;
+    rd_kafka_t              *rk;
+    kafka_conf_callbacks    cbs;
+    HashTable               consuming;
+	HashTable				topics;
+	HashTable				queues;
+    zend_object             std;
+} kafka_object;
+
+PHP_METHOD(RdKafka, __construct);
+
+extern zend_module_entry rdkafka_module_entry;
+#define phpext_rdkafka_ptr &rdkafka_module_entry
+
+#define PHP_RDKAFKA_VERSION "5.0.1"
+
+extern zend_object_handlers kafka_default_object_handlers;
+extern zend_class_entry * ce_kafka_exception;
+
+#ifdef PHP_WIN32
+#	define PHP_RDKAFKA_API __declspec(dllexport)
+#elif defined(__GNUC__) && __GNUC__ >= 4
+#	define PHP_RDKAFKA_API __attribute__ ((visibility("default")))
+#else
+#	define PHP_RDKAFKA_API
+#endif
+
+#endif	/* PHP_RDKAFKA_H */

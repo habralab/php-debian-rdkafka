@@ -1,5 +1,5 @@
 --TEST--
-Produce with opaque, no flush
+Produce with opaque, no flush, with delivery callback
 --SKIPIF--
 <?php
 require __DIR__ . '/integration-tests-check.php';
@@ -14,13 +14,17 @@ if (RD_KAFKA_VERSION >= 0x090000 && false !== getenv('TEST_KAFKA_BROKER_VERSION'
 }
 $conf->set('metadata.broker.list', getenv('TEST_KAFKA_BROKERS'));
 
+$conf->setDrMsgCb(function ($rdkafka, $msg) {
+    var_dump($rdkafka, $msg);
+});
+
 $producer = new RdKafka\Producer($conf);
 
 $topicName = sprintf("test_rdkafka_%s", uniqid());
 
 $topic = $producer->newTopic($topicName);
 
-if (!$producer->getMetadata(false, $topic, 2*1000)) {
+if (!$producer->getMetadata(false, $topic, 10*1000)) {
     echo "Failed to get metadata, is broker down?\n";
 }
 
