@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.10.12" version="2.1" xmlns="http://pear.php.net/dtd/package-2.1" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.1     http://pear.php.net/dtd/package-2.1.xsd">
+<package packagerversion="1.10.13" version="2.1" xmlns="http://pear.php.net/dtd/package-2.1" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.1     http://pear.php.net/dtd/package-2.1.xsd">
  <name>rdkafka</name>
  <channel>pecl.php.net</channel>
  <summary>Kafka client based on librdkafka</summary>
@@ -10,10 +10,10 @@
   <email>arnaud.lb@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2022-02-15</date>
- <time>12:35:05</time>
+ <date>2022-06-12</date>
+ <time>10:55:21</time>
  <version>
-  <release>6.0.1</release>
+  <release>6.0.2</release>
   <api>6.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
  <notes>
 ## Bugfixes
-- Always initialize Message::$headers (#508, @arnaud-lb)
+- Fixed signature of RdKafka\KafkaConsumer::getMetadata() (#521, @arnaud-lb)
  </notes>
  <contents>
   <dir name="/">
@@ -33,6 +33,7 @@
    <file md5sum="4c4a4b2b8e53e02706c5f91d8862f0c5" name="tests/bug330.phpt" role="test" />
    <file md5sum="88d9d26928fd0c185d246d416e7b8504" name="tests/bug465.phpt" role="test" />
    <file md5sum="4c09e16dcb2053e6f24e76e57929ffc5" name="tests/bug508.phpt" role="test" />
+   <file md5sum="74eb74ea6ee93493714af47ff3edaf7e" name="tests/bug521.phpt" role="test" />
    <file md5sum="9aa37ce6873e9a75caa7acec4981c292" name="tests/bug74.phpt" role="test" />
    <file md5sum="9fab0fc9d80f94ad3b8a22c42c3e392c" name="tests/bug88.phpt" role="test" />
    <file md5sum="049ae2ff35a1966b70dbd1f11abfb050" name="tests/bugConfSetArgument.phpt" role="test" />
@@ -66,7 +67,7 @@
    <file md5sum="eecc99e24205326104edc84a6b0443f9" name="tests/topic_partition.phpt" role="test" />
    <file md5sum="9f77b1cb29d903194df6369de74aff3c" name="CREDITS" role="doc" />
    <file md5sum="3957792c293a3cd3a4a49ca5c9035ec7" name="LICENSE" role="doc" />
-   <file md5sum="099320fdfe8f719939c09c69524fcb38" name="README.md" role="doc" />
+   <file md5sum="bcb057a74ec73c8ed07afb24863b63e5" name="README.md" role="doc" />
    <file md5sum="68f2fe140be527b4e6892205eb390996" name="conf.c" role="src" />
    <file md5sum="36cd660b768be203496e570d07c53fd8" name="conf.h" role="src" />
    <file md5sum="987c323dd610210c5d72b6634f564a34" name="conf.stub.php" role="src" />
@@ -80,9 +81,9 @@
    <file md5sum="990515a29d16e2271da93b76c4a267be" name="fun_legacy_arginfo.h" role="src" />
    <file md5sum="e4412c137a885bd6f2cc3dd075073d4f" name="kafka_consumer.c" role="src" />
    <file md5sum="fa9974c0d8766440764abbd58a5eedd4" name="kafka_consumer.h" role="src" />
-   <file md5sum="60ee4b44cc059ef943e4a6e925397f66" name="kafka_consumer.stub.php" role="src" />
-   <file md5sum="6a47a4569e897dfbd9aa497d02e477e3" name="kafka_consumer_arginfo.h" role="src" />
-   <file md5sum="8283bc21e36b238d604dbd12642bc1f3" name="kafka_consumer_legacy_arginfo.h" role="src" />
+   <file md5sum="db936180c7c9ca75080077ab9bda86cc" name="kafka_consumer.stub.php" role="src" />
+   <file md5sum="8d41259e0d20359b12b6bb9e5a3c16d0" name="kafka_consumer_arginfo.h" role="src" />
+   <file md5sum="deeacb1df05505e07d7d0b643cde81d0" name="kafka_consumer_legacy_arginfo.h" role="src" />
    <file md5sum="b9f703c5a945c9cbf54bba2b4631f6db" name="kafka_error_exception.c" role="src" />
    <file md5sum="ec18905d28da69b37ee5c8ae08fd7a65" name="kafka_error_exception.h" role="src" />
    <file md5sum="16b41ae9a2e3d3dfe71b911192d8fd05" name="kafka_error_exception.stub.php" role="src" />
@@ -118,7 +119,7 @@
    <file md5sum="499c53ad5ecc2281b4755134fb435e18" name="metadata_topic.stub.php" role="src" />
    <file md5sum="15c67f8034e7a9fdbe802f2abf470b73" name="metadata_topic_arginfo.h" role="src" />
    <file md5sum="2794c0d6b3f7641003a70ce700d57d96" name="metadata_topic_legacy_arginfo.h" role="src" />
-   <file md5sum="0065cd2feb1238711547dd51f612460b" name="php_rdkafka.h" role="src" />
+   <file md5sum="c2829d546d465a7364fdd7f090e6329f" name="php_rdkafka.h" role="src" />
    <file md5sum="0c8ec9f7f1f06bea4f4c7ab6496b8959" name="php_rdkafka_priv.h" role="src" />
    <file md5sum="05700cf58da91e325ce04e4ae2c3f8e6" name="queue.c" role="src" />
    <file md5sum="11d9fc6b7ccc2b83e5d9c01e66770b72" name="queue.h" role="src" />
@@ -155,6 +156,23 @@
  <providesextension>rdkafka</providesextension>
  <extsrcrelease />
  <changelog>
+  <release>
+   <date>2022-02-15</date>
+   <time>12:00:00</time>
+   <version>
+    <release>6.0.1</release>
+    <api>6.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+## Bugfixes
+- Always initialize Message::$headers (#508, @arnaud-lb)
+   </notes>
+  </release>
   <release>
    <date>2022-01-07</date>
    <time>12:00:00</time>
