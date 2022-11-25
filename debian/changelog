@@ -1,3 +1,15 @@
+php-rdkafka (5.0.1+4.1.2-1) stable; urgency=medium
+
+  * Release for version 5.0.1
+   - Add pausePartitions(), resumePartitions() on RdKfaka, RdKafka\KafkaConsumer (#438, @arnaud-lb)
+   - Clarify error when KafkaConsumer is closed (@zoonru)
+   - Fix windows build (#440, @nick-zh)
+   - Fix crash in RdKafka\Metadata\Topic::getTopic() (#465, @arnaud-lb)
+  * Release for version 4.1.2
+   - Enabled features on windows build: headers, purge, murmur (#410, @nick-zh, @cmb69)
+
+ -- Vadim Rybalko <vadim@bionicman.name>  Fri, 25 Nov 2022 18:51:39 +0200
+
 php-rdkafka (5.0.0+4.1.2-1) unstable; urgency=medium
 
   * Release for version 5.0.0
