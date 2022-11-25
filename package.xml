@@ -10,10 +10,10 @@
   <email>arnaud.lb@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2021-11-19</date>
- <time>13:56:29</time>
+ <date>2021-11-27</date>
+ <time>11:28:32</time>
  <version>
-  <release>5.0.1</release>
+  <release>5.0.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -22,13 +22,8 @@
  </stability>
  <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
  <notes>
-## Enhancements
-- Add pausePartitions(), resumePartitions() on RdKfaka, RdKafka\KafkaConsumer (#438, @arnaud-lb)
-- Clarify error when KafkaConsumer is closed (@zoonru)
-
 ## Bugfixes
-- Fix windows build (#440, @nick-zh)
-- Fix crash in RdKafka\Metadata\Topic::getTopic() (#465, @arnaud-lb)
+- Fix arginfo on getMetadata(), queryWatermarkOffsets() (#494)
  </notes>
  <contents>
   <dir name="/">
@@ -36,7 +31,7 @@
    <file md5sum="2fd2a16d4f5d4764defa0a7a78a3a2de" name="tests/allow_null_payload.phpt" role="test" />
    <file md5sum="9725a96aa30210fd42a0dc0bb5e87a60" name="tests/bug115.phpt" role="test" />
    <file md5sum="4c4a4b2b8e53e02706c5f91d8862f0c5" name="tests/bug330.phpt" role="test" />
-   <file md5sum="99b27df292c04c059f0714ed7909ec7e" name="tests/bug74.phpt" role="test" />
+   <file md5sum="978a9731d242afb6cb0f9216a77ea44c" name="tests/bug74.phpt" role="test" />
    <file md5sum="9fab0fc9d80f94ad3b8a22c42c3e392c" name="tests/bug88.phpt" role="test" />
    <file md5sum="bc5c82ad950cbc0719142b85b1028c1a" name="tests/bugConfSetArgument.phpt" role="test" />
    <file md5sum="7b0804ee8144adb6ea52a5ddd7bd07ad" name="tests/conf_callbacks_integration.phpt" role="test" />
@@ -74,7 +69,7 @@
    <file md5sum="e8b92df1fedfae5324b96a5907da521b" name="config.w32" role="src" />
    <file md5sum="60a4dc306e96f0f0ba43db2b27bc2d65" name="fun.c" role="src" />
    <file md5sum="ec80c40b4f2b1a45f65171294ffbac88" name="fun.h" role="src" />
-   <file md5sum="0214db98f7c3e1af3aeff41ec1fa2524" name="kafka_consumer.c" role="src" />
+   <file md5sum="38072b709a12a8803c6357df1d9c10d9" name="kafka_consumer.c" role="src" />
    <file md5sum="fa9974c0d8766440764abbd58a5eedd4" name="kafka_consumer.h" role="src" />
    <file md5sum="35e7d08a73228865457176c6f516bf90" name="kafka_error_exception.c" role="src" />
    <file md5sum="ec18905d28da69b37ee5c8ae08fd7a65" name="kafka_error_exception.h" role="src" />
@@ -90,11 +85,11 @@
    <file md5sum="23604046827735d4fa46359f1465e69e" name="metadata_partition.h" role="src" />
    <file md5sum="9b52e4912dfa0a1722d713f0210d2aa5" name="metadata_topic.c" role="src" />
    <file md5sum="69194dd5df78a86df962b03d97f81388" name="metadata_topic.h" role="src" />
-   <file md5sum="94371f3bc53d9dc3927b047b45e2bb77" name="php_rdkafka.h" role="src" />
+   <file md5sum="299fc4a2e0645495a401afa2d54404b9" name="php_rdkafka.h" role="src" />
    <file md5sum="e81f1d8e582753202ecf1e02bb5f13dd" name="php_rdkafka_priv.h" role="src" />
    <file md5sum="3e33aa84cc791a0db2d619316623aae7" name="queue.c" role="src" />
    <file md5sum="11d9fc6b7ccc2b83e5d9c01e66770b72" name="queue.h" role="src" />
-   <file md5sum="fcb96484eed2b87f28b9477eb4a9ba16" name="rdkafka.c" role="src" />
+   <file md5sum="0a7543edaee29489976ec1a5bde022fa" name="rdkafka.c" role="src" />
    <file md5sum="fbed45e61cdeb94d8fdc7b413828d86c" name="topic.c" role="src" />
    <file md5sum="973d55800702d6072eab1ac0aa5800e7" name="topic.h" role="src" />
    <file md5sum="3cb9c617a23ffea96005975f5f751c4c" name="topic_partition.c" role="src" />
@@ -115,6 +110,28 @@
  <providesextension>rdkafka</providesextension>
  <extsrcrelease />
  <changelog>
+  <release>
+   <date>2021-11-19</date>
+   <time>14:00:00</time>
+   <version>
+    <release>5.0.1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+## Enhancements
+- Add pausePartitions(), resumePartitions() on RdKfaka, RdKafka\KafkaConsumer (#438, @arnaud-lb)
+- Clarify error when KafkaConsumer is closed (@zoonru)
+
+## Bugfixes
+- Fix windows build (#440, @nick-zh)
+- Fix crash in RdKafka\Metadata\Topic::getTopic() (#465, @arnaud-lb)
+   </notes>
+  </release>
   <release>
    <date>2021-01-14</date>
    <time>12:00:00</time>
