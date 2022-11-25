@@ -1,0 +1,5 @@
+php-rdkafka (4.1.2-1) stable; urgency=medium
+
+  * Release for version 4.1.2
+
+ -- Vadim Rybalko <vadim@bionicman.name>  Fri, 25 Nov 2022 16:01:22 +0200

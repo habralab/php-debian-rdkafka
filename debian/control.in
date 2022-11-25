@@ -1,0 +1,33 @@
+Source: php-rdkafka
+Section: php
+Priority: optional
+Maintainer: Habr Team <servers@habr.team>
+Uploaders: Vadim Rybalko <vadim@habr.team>
+Build-Depends: debhelper (>= 10~),
+               dh-php (>= 4~),
+               liblz4-dev,
+               libzstd-dev,
+               librdkafka-dev (>= 0.11~),
+               php-all-dev
+Standards-Version: 4.5.1
+Vcs-Git: https://git.habralab.com/tools/php-rdkafka-debian.git
+Vcs-Browser: https://git.habralab.com/tools/php-rdkafka-debian
+Homepage: https://pecl.php.net/package/rdkafka
+
+Package: php-rdkafka
+Priority: optional
+Section: php
+Maintainer: Habr Team <servers@habr.team>
+Architecture: amd64
+Pre-Depends: php-common (>= 2:69~)
+Depends: ${misc:Depends},
+         ${pecl:Depends},
+         ${php:Depends},
+         ${shlibs:Depends}
+Breaks: ${pecl:Breaks}
+Replaces: ${pecl:Replaces}
+Suggests: ${pecl:Suggests}
+Provides: ${pecl:Provides},
+          ${php:Provides}
+Description: PHP-rdkafka is a stable Kafka client for PHP based on librdkafka
+ .
