@@ -17,7 +17,7 @@ $conf->set('transactional.id', 'transactional-producer');
 if (RD_KAFKA_VERSION >= 0x090000 && false !== getenv('TEST_KAFKA_BROKER_VERSION')) {
     $conf->set('broker.version.fallback', getenv('TEST_KAFKA_BROKER_VERSION'));
 }
-
+$conf->setLogCb(function ($kafka, $level, $facility, $message) {});
 $conf->setErrorCb(function ($producer, $err, $errstr) {
     printf("%s: %s\n", rd_kafka_err2str($err), $errstr);
     exit;
@@ -39,7 +39,7 @@ $topicName = sprintf("test_rdkafka_%s", uniqid());
 
 $topic = $producer->newTopic($topicName);
 
-if (!$producer->getMetadata(false, $topic, 2*1000)) {
+if (!$producer->getMetadata(false, $topic, 10*1000)) {
     echo "Failed to get metadata, is broker down?\n";
 }
 

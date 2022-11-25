@@ -1,5 +1,5 @@
 --TEST--
-Producev with opaque
+Produce with opaque
 --SKIPIF--
 <?php
 require __DIR__ . '/integration-tests-check.php';
@@ -25,12 +25,12 @@ $topicName = sprintf("test_rdkafka_%s", uniqid());
 
 $topic = $producer->newTopic($topicName);
 
-if (!$producer->getMetadata(false, $topic, 2*1000)) {
+if (!$producer->getMetadata(false, $topic, 10*1000)) {
     echo "Failed to get metadata, is broker down?\n";
 }
 
 for ($i = 0; $i < 10; $i++) {
-    $topic->producev(0, 0, "message $i", null, [], 0, "opaque $i");
+    $topic->produce(0, 0, "message $i", null, "opaque $i");
 }
 
 $producer->flush(10*1000);
