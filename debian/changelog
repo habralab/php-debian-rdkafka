@@ -1,6 +1,15 @@
+php-rdkafka (6.0.2+4.1.2-1) stable; urgency=medium
+
+  * Release for version 6.0.2
+   - Fixed signature of RdKafka\KafkaConsumer::getMetadata() (#521, @arnaud-lb)
+  * Release for version 4.1.2
+   - Enabled features on windows build: headers, purge, murmur (#410, @nick-zh, @cmb69)
+
+ -- Vadim Rybalko <vadim@bionicman.name>  Fri, 25 Nov 2022 19:19:50 +0200
+
 php-rdkafka (6.0.1+4.1.2-1) stable; urgency=medium
 
-  * Release for version 6.0.0
+  * Release for version 6.0.1
    - Always initialize Message::$headers (#508, @arnaud-lb)
   * Release for version 4.1.2
    - Enabled features on windows build: headers, purge, murmur (#410, @nick-zh, @cmb69)
