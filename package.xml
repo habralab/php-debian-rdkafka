@@ -10,10 +10,10 @@
   <email>arnaud.lb@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2022-06-12</date>
- <time>10:55:21</time>
+ <date>2022-07-02</date>
+ <time>13:15:21</time>
  <version>
-  <release>6.0.2</release>
+  <release>6.0.3</release>
   <api>6.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,8 @@
  </stability>
  <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
  <notes>
-## Bugfixes
-- Fixed signature of RdKafka\KafkaConsumer::getMetadata() (#521, @arnaud-lb)
+## Improvements
+- Ability to provide custom `librdkafka` path during pecl install (#526, @Wirone)
  </notes>
  <contents>
   <dir name="/">
@@ -119,7 +119,7 @@
    <file md5sum="499c53ad5ecc2281b4755134fb435e18" name="metadata_topic.stub.php" role="src" />
    <file md5sum="15c67f8034e7a9fdbe802f2abf470b73" name="metadata_topic_arginfo.h" role="src" />
    <file md5sum="2794c0d6b3f7641003a70ce700d57d96" name="metadata_topic_legacy_arginfo.h" role="src" />
-   <file md5sum="c2829d546d465a7364fdd7f090e6329f" name="php_rdkafka.h" role="src" />
+   <file md5sum="a3d9880f527d76b9103c616a6a49e57f" name="php_rdkafka.h" role="src" />
    <file md5sum="0c8ec9f7f1f06bea4f4c7ab6496b8959" name="php_rdkafka_priv.h" role="src" />
    <file md5sum="05700cf58da91e325ce04e4ae2c3f8e6" name="queue.c" role="src" />
    <file md5sum="11d9fc6b7ccc2b83e5d9c01e66770b72" name="queue.h" role="src" />
@@ -154,8 +154,27 @@
   </required>
  </dependencies>
  <providesextension>rdkafka</providesextension>
- <extsrcrelease />
+ <extsrcrelease>
+  <configureoption default="autodetect" name="with-rdkafka" prompt="librdkafka installation path?" />
+ </extsrcrelease>
  <changelog>
+  <release>
+   <date>2022-06-12</date>
+   <time>12:00:00</time>
+   <version>
+    <release>6.0.2</release>
+    <api>6.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+## Bugfixes
+- Fixed signature of RdKafka\KafkaConsumer::getMetadata() (#521, @arnaud-lb)
+   </notes>
+  </release>
   <release>
    <date>2022-02-15</date>
    <time>12:00:00</time>
