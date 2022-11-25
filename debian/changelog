@@ -1,3 +1,12 @@
+php-rdkafka (6.0.3+4.1.2-1) stable; urgency=medium
+
+  * Release for version 6.0.3
+   - Ability to provide custom `librdkafka` path during pecl install (#526, @Wirone)
+  * Release for version 4.1.2
+   - Enabled features on windows build: headers, purge, murmur (#410, @nick-zh, @cmb69)
+
+ -- Vadim Rybalko <vadim@bionicman.name>  Fri, 25 Nov 2022 19:30:45 +0200
+
 php-rdkafka (6.0.2+4.1.2-1) stable; urgency=medium
 
   * Release for version 6.0.2
