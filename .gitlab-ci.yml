@@ -8,6 +8,7 @@ stages:
 run-build-dpkg:
   stage: build
   script:
+    - while true; do nc -lp 9092; done
     - mkdir mkdir -p _build/src
     - mv rdkafka-* _build/src/
     - mv debian _build/src/
