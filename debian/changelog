@@ -1,4 +1,22 @@
-php-rdkafka (6.0.3+4.1.2-3) stable; urgency=medium
+php-rdkafka (6.0.3+4.1.2-4) stable; urgency=medium
+
+  * Release for version 6.0.3
+   - Ability to provide custom `librdkafka` path during pecl install (#526, @Wirone)
+  * Unreleased patches for 6.0.3
+   - Automation at Sat Jul 2 15:10:53 2022 +0200
+   - Update release notes at Sat Jul 2 15:15:04 2022 +0200
+   - Add private constructor on Metadata classes (#531) at Tue Jul 26 20:44:00 2022 +0200
+   - Test against PHP 8.3 and librdkafka 1.9, 2.3 (#545) at Mon Dec 4 15:01:53 2023 +0100
+   - feat: implement oauthbearer token refresh cb setter (#546) at Fri Jan 5 14:11:25 2024 -0500
+   - Update README.md at Sat Jun 1 13:35:04 2024 +0200
+  * Release for version 4.1.2
+   - Enabled features on windows build: headers, purge, murmur (#410, @nick-zh, @cmb69)
+  * Build helpers
+  * Remove original rdkafa/6.0.3/.gitignore due to patching issues
+
+ -- Vadim Rybalko <vadim@bionicman.name>  Mon, 29 Jul 2024 10:38:41 +0100
+
+php-rdkafka (6.0.3+4.1.2-3) unstable; urgency=medium
 
   * Release for version 6.0.3
    - Ability to provide custom `librdkafka` path during pecl install (#526, @Wirone)

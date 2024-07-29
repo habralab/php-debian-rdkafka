@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.1" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.1     http://pear.php.net/dtd/package-2.1.xsd">
+ <name>rdkafka</name>
+ <channel>pecl.php.net</channel>
+ <summary>Kafka client based on librdkafka</summary>
+ <description>PHP-rdkafka is a stable Kafka client for PHP based on librdkafka</description>
+ <lead>
+  <name>Arnaud Le Blanc</name>
+  <user>lbarnaud</user>
+  <email>arnaud.lb@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2022-07-02</date>
+ <time>12:26:56</time>
+ <version>
+  <release>6.0.3</release>
+  <api>6.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+ <notes>
+  ## Improvements
+  - Ability to provide custom `librdkafka` path during install (#526, @Wirone)
+ </notes>
+ <contents>
+  <dir name="/">
+   <file role="doc" name="CREDITS"/>
+   <file role="doc" name="LICENSE"/>
+   <file role="doc" name="README.md"/>
+   <file role="src" name="conf.c"/>
+   <file role="src" name="conf.h"/>
+   <file role="src" name="conf.stub.php"/>
+   <file role="src" name="conf_arginfo.h"/>
+   <file role="src" name="conf_legacy_arginfo.h"/>
+   <file role="src" name="config.m4"/>
+   <file role="src" name="config.w32"/>
+   <file role="src" name="fun.c"/>
+   <file role="src" name="fun.stub.php"/>
+   <file role="src" name="fun_arginfo.h"/>
+   <file role="src" name="fun_legacy_arginfo.h"/>
+   <file role="src" name="kafka_consumer.c"/>
+   <file role="src" name="kafka_consumer.h"/>
+   <file role="src" name="kafka_consumer.stub.php"/>
+   <file role="src" name="kafka_consumer_arginfo.h"/>
+   <file role="src" name="kafka_consumer_legacy_arginfo.h"/>
+   <file role="src" name="kafka_error_exception.c"/>
+   <file role="src" name="kafka_error_exception.h"/>
+   <file role="src" name="kafka_error_exception.stub.php"/>
+   <file role="src" name="kafka_error_exception_arginfo.h"/>
+   <file role="src" name="kafka_error_exception_legacy_arginfo.h"/>
+   <file role="src" name="message.c"/>
+   <file role="src" name="message.h"/>
+   <file role="src" name="message.stub.php"/>
+   <file role="src" name="message_arginfo.h"/>
+   <file role="src" name="message_legacy_arginfo.h"/>
+   <file role="src" name="metadata.c"/>
+   <file role="src" name="metadata.h"/>
+   <file role="src" name="metadata.stub.php"/>
+   <file role="src" name="metadata_arginfo.h"/>
+   <file role="src" name="metadata_broker.c"/>
+   <file role="src" name="metadata_broker.h"/>
+   <file role="src" name="metadata_broker.stub.php"/>
+   <file role="src" name="metadata_broker_arginfo.h"/>
+   <file role="src" name="metadata_broker_legacy_arginfo.h"/>
+   <file role="src" name="metadata_collection.c"/>
+   <file role="src" name="metadata_collection.h"/>
+   <file role="src" name="metadata_collection.stub.php"/>
+   <file role="src" name="metadata_collection_arginfo.h"/>
+   <file role="src" name="metadata_collection_legacy_arginfo.h"/>
+   <file role="src" name="metadata_legacy_arginfo.h"/>
+   <file role="src" name="metadata_partition.c"/>
+   <file role="src" name="metadata_partition.h"/>
+   <file role="src" name="metadata_partition.stub.php"/>
+   <file role="src" name="metadata_partition_arginfo.h"/>
+   <file role="src" name="metadata_partition_legacy_arginfo.h"/>
+   <file role="src" name="metadata_topic.c"/>
+   <file role="src" name="metadata_topic.h"/>
+   <file role="src" name="metadata_topic.stub.php"/>
+   <file role="src" name="metadata_topic_arginfo.h"/>
+   <file role="src" name="metadata_topic_legacy_arginfo.h"/>
+   <file role="src" name="php_rdkafka.h"/>
+   <file role="src" name="php_rdkafka_priv.h"/>
+   <file role="src" name="queue.c"/>
+   <file role="src" name="queue.h"/>
+   <file role="src" name="queue.stub.php"/>
+   <file role="src" name="queue_arginfo.h"/>
+   <file role="src" name="queue_legacy_arginfo.h"/>
+   <file role="src" name="rdkafka.c"/>
+   <file role="src" name="rdkafka.stub.php"/>
+   <file role="src" name="rdkafka_arginfo.h"/>
+   <file role="src" name="rdkafka_legacy_arginfo.h"/>
+   <file role="src" name="topic.c"/>
+   <file role="src" name="topic.h"/>
+   <file role="src" name="topic.stub.php"/>
+   <file role="src" name="topic_arginfo.h"/>
+   <file role="src" name="topic_legacy_arginfo.h"/>
+   <file role="src" name="topic_partition.c"/>
+   <file role="src" name="topic_partition.h"/>
+   <file role="src" name="topic_partition.stub.php"/>
+   <file role="src" name="topic_partition_arginfo.h"/>
+   <file role="src" name="topic_partition_legacy_arginfo.h"/>
+   <dir name="tests">
+    <file role="test" name="allow_null_payload_and_key.phpt"/>
+    <file role="test" name="allow_null_payload.phpt"/>
+    <file role="test" name="bug115.phpt"/>
+    <file role="test" name="bug330.phpt"/>
+    <file role="test" name="bug465.phpt"/>
+    <file role="test" name="bug508.phpt"/>
+    <file role="test" name="bug521.phpt"/>
+    <file role="test" name="bug74.phpt"/>
+    <file role="test" name="bug88.phpt"/>
+    <file role="test" name="bugConfSetArgument.phpt"/>
+    <file role="test" name="conf_callbacks_integration.phpt"/>
+    <file role="test" name="conf_callbacks.phpt"/>
+    <file role="test" name="conf.phpt"/>
+    <file role="test" name="conf_setDefaultTopicConf8.phpt"/>
+    <file role="test" name="conf_setDefaultTopicConf.phpt"/>
+    <file role="test" name="constants.phpt"/>
+    <file role="test" name="err2name.phpt"/>
+    <file role="test" name="init_transaction_not_configured.phpt"/>
+    <file role="test" name="integration-tests-check.php"/>
+    <file role="test" name="kafka_error_exception.phpt"/>
+    <file role="test" name="message_headers.phpt"/>
+    <file role="test" name="new_topic_with_conf.phpt"/>
+    <file role="test" name="pause_resume.phpt"/>
+    <file role="test" name="produce_consume.phpt"/>
+    <file role="test" name="produce_consume_queue.phpt"/>
+    <file role="test" name="produce_consume_transactional.phpt"/>
+    <file role="test" name="produce_opaque_noconf.phpt"/>
+    <file role="test" name="produce_opaque_noflush_dr_callback.phpt"/>
+    <file role="test" name="produce_opaque_noflush.phpt"/>
+    <file role="test" name="produce_opaque.phpt"/>
+    <file role="test" name="produce_opaque_purge_dr_callback.phpt"/>
+    <file role="test" name="produce_opaque_purge.phpt"/>
+    <file role="test" name="producev_opaque.phpt"/>
+    <file role="test" name="rd_kafka_get_err_descs.phpt"/>
+    <file role="test" name="test0.phpt"/>
+    <file role="test" name="test_env.php.sample"/>
+    <file role="test" name="topic_conf.phpt"/>
+    <file role="test" name="topic_partition.phpt"/>
+   </dir>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>7.0.0</min>
+    <max>8.99.99</max>
+   </php>
+   <pearinstaller>
+    <min>1.4.8</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <providesextension>rdkafka</providesextension>
+ <extsrcrelease>
+   <configureoption name="with-rdkafka" default="autodetect" prompt="librdkafka installation path?"/>
+ </extsrcrelease>
+ <changelog>
+  <release>
+   <date>2022-06-12</date>
+   <time>12:00:00</time>
+   <version>
+    <release>6.0.2</release>
+    <api>6.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    ## Bugfixes
+    - Fixed signature of RdKafka\KafkaConsumer::getMetadata() (#521, @arnaud-lb)
+   </notes>
+  </release>
+  <release>
+   <date>2022-02-15</date>
+   <time>12:00:00</time>
+   <version>
+    <release>6.0.1</release>
+    <api>6.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    ## Bugfixes
+    - Always initialize Message::$headers (#508, @arnaud-lb)
+   </notes>
+  </release>
+  <release>
+   <date>2022-01-07</date>
+   <time>12:00:00</time>
+   <version>
+    <release>6.0.0</release>
+    <api>6.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    # Changes since 5.x
+
+    ## Improvements
+    - PHP 8.1 support (@remicollet, @ruudk, @nick-zh)
+    - Added parameter types (when built with PHP&gt;=8.0) (@arnaud-lb)
+    - Added tentative return types (when built with PHP&gt;=8.1) (@arnaud-lb)
+
+    ## Deprecations
+    - PHP 8.1: Overloading php-rdkafka methods without specifying a return type
+      will trigger a deprecation message unless annotated with
+      #[\ReturnTypeWillChange]
+
+    # Changes since 6.0.0RC2
+
+    ## Bugfixes
+    - Fix newTopic() arginfo (#502, @arnaud-lb)
+   </notes>
+  </release>
+  <release>
+   <date>2021-11-27</date>
+   <time>15:00:00</time>
+   <version>
+    <release>6.0.0RC2</release>
+    <api>6.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    ## Bugfixes
+    -  Fix crash in RdKafka\TopicPartition::__construct() (#491, @remicollet)
+   </notes>
+  </release>
+  <release>
+   <date>2021-11-19</date>
+   <time>15:00:00</time>
+   <version>
+    <release>6.0.0RC1</release>
+    <api>6.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    ## Enhancements
+    - PHP 8.1 support (@ruudk, @remicollet, @nick-zh, @arnaud-lb)
+
+    ## Breaking changes
+    - Added tentative return types in PHP 8.1 builds
+   </notes>
+  </release>
+  <release>
+   <date>2021-11-19</date>
+   <time>14:00:00</time>
+   <version>
+    <release>5.0.1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    ## Enhancements
+    - Add pausePartitions(), resumePartitions() on RdKfaka, RdKafka\KafkaConsumer (#438, @arnaud-lb)
+    - Clarify error when KafkaConsumer is closed (@zoonru)
+
+    ## Bugfixes
+    - Fix windows build (#440, @nick-zh)
+    - Fix crash in RdKafka\Metadata\Topic::getTopic() (#465, @arnaud-lb)
+   </notes>
+  </release>
+  <release>
+   <date>2021-01-14</date>
+   <time>12:00:00</time>
+   <version>
+    <release>5.0.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    ## Enhancements
+    - PHP 8 support (@nick-zh, @arnaud-lb)
+    - Suport passing an opaque value in produce(), producev() (@arnaud-lb)
+
+    ## Breaking changes
+    - Dropped PHP 5 support
+   </notes>
+  </release>
+  <release>
+   <date>2020-12-06</date>
+   <time>12:00:00</time>
+   <version>
+    <release>4.1.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    BREAKING CHANGE: Since version 4.0, the client no longer polls for network
+    events at shutdown (during object destructor). This behaviour didn't give
+    enough control to the user in case of server issue, and could cause the script
+    to hang while terminating.
+
+    Starting from 4.0, programs MUST call flush() before shutting down, otherwise
+    some messages and callbacks may be lost.
+
+    ## Features
+    - Add transactional producer support (#359, @nick-zh)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    BREAKING CHANGE: Since version 4.0, the client no longer polls for network
+    events at shutdown (during object destructor). This behaviour didn't give
+    enough control to the user in case of server issue, and could cause the script
+    to hang while terminating.
+
+    Starting from 4.0, programs MUST call flush() before shutting down, otherwise
+    some messages and callbacks may be lost.
+
+    ## Bugfixes
+    - Fix crash during shurtdown (#367, @nick-zh, @sofire)
+
+    ## Enhancements
+    - Improved CI (@Steveb-p, @arnaud-lb)
+
+    ## Documentation
+    - Improved doc (@nick-zh, @Steveb-p)
+   </notes>
+  </release>
+  <release>
+   <date>2020-02-07</date>
+   <time>12:00:00</time>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    BREAKING CHANGE: Since version 4.0, the client no longer polls for network
+    events at shutdown (during object destructor). This behaviour didn't give
+    enough control to the user in case of server issue, and could cause the script
+    to hang while terminating.
+
+    Starting from 4.0, programs MUST call flush() before shutting down, otherwise
+    some messages and callbacks may be lost.
+
+    ## Improvements
+    - Add partition check for offsetStore (#331, @nick-zh)
+    - Naming consistency for setting in tests (#339, @romainneutron)
+
+    ## Bugfixes
+    - Fix headers containing null bytes (#338,  @arnaud-lb, @dirx @nick-zh)
+    - Fix topic deconstruct for high level consumer (#333, @nick-zh)
+
+    ## Documentation
+    - Fix doc example (#340, @Steveb-p)
+    - Remove outdated and duplicate examples (#341, @nick-zh)
+   </notes>
+  </release>
+  <release>
+   <date>2019-12-15</date>
+   <time>12:00:00</time>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    BREAKING CHANGE: Since version 4.0, the client no longer polls for network
+    events at shutdown (during object destructor). This behaviour didn't give
+    enough control to the user in case of server issue, and could cause the script
+    to hang while terminating.
+
+    Starting from 4.0, programs MUST call flush() before shutting down, otherwise
+    some messages and callbacks may be lost.
+
+    ## Bugfixes
+
+    * Fix partition 0 exposed as NULL in Message (#327 reverts #321, @arnaud-lb @nick-zh)
+    * Fix memory leak in consume() when messages have headers (#323, @nick-zh)
+   </notes>
+  </release>
+  <release>
+   <date>2019-12-08</date>
+   <time>12:00:00</time>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    BREAKING CHANGE: Since version 4.0, the client no longer polls for network
+    events at shutdown (during object destructor). This behaviour didn't give
+    enough control to the user in case of server issue, and could cause the script
+    to hang while terminating.
+
+    Starting from 4.0, programs MUST call flush() before shutting down, otherwise
+    some messages and callbacks may be lost.
+
+    ## Features
+
+    * Added RdKafka\ConsumerTopic::consumeCallback() (#310, @nick-zh)
+
+    ## Enhancements
+
+    * Run integration tests in CI (#223, @Steveb-p)
+    * Improved README (#295 #297 #298, #307 @Steveb-p @sndsgd @nick-zh)
+    * Fix windows test cases (#296, @cmb69)
+    * Add testsuite in pecl archive (#291, @remicollet)
+    * Add editor config (#308, @Steveb-p)
+
+    ## Bugfixes
+
+    * Fix build (#290, @nick-zh)
+    * Fix segfault during module shutdown (#293, @arnaud-lb @nick-zh)
+    * Fix RdKafka\Topic visibility in PHP 7.4 (#316, @nick-zh)
+    * Fix headers memory management in producev (#318 , @nick-zh)
+    * Fix partition number in error (#321, @nick-zh)
+   </notes>
+  </release>
+  <release>
+   <date>2019-10-04</date>
+   <time>12:00:00</time>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    BREAKING CHANGE: Since version 4.0, the client longer polls for network events
+    at shutdown (during object destructor). This behaviour didn't give enought
+    control to the user in case of server issue, and could cause the script to
+    hang while terminating.
+
+    Starting from this version, programs MUST now call flush() before shutting
+    down, otherwise some messages and callbacks may be lost.
+
+    ## Features
+
+    * Added RdKafka\Kafka::offsetsForTimes(), RdKafka\KafkaConsumer::offsetsForTimes() (#238, #270, @nick-zh)
+    * Added RdKafka\KafkaConsumer::getOffsetPositions() (#244, @nick-zh)
+    * Added RdKafka\Kafka::purge() (#255, @nick-zh)
+    * Added RdKafka\Kafka::flush() (#264, @nick-zh)
+    * Added RdKafka\ConsumerTopic::consumeBatch() (#256, @nick-zh)
+    * Added RdKafka\Conf::setLogCb() (#253, @nick-zh)
+    * Added RdKafka\KafkaConsumer::queryWatermarkOffsets() (#271, @nick-zh)
+    * Added RdKafka\KafkaConsumer::close() (#144, @TiMESPLiNTER)
+
+    ## Enhancements
+
+    * Support block on full producer queue (RD_KAFKA_MSG_F_BLOCK) (#245, @nick-zh)
+    * Add additional partitioners (#267, @nick-zh)
+    * Fix phpinfo output (#172, @TiMESPLiNTER)
+    * Don't poll in destruct anymore (#264, #278, @nick-zh)
+
+    ## Bugfixes
+
+    * Fix segfault, remove Producer::newQueue (#273, @nick-zh)
+
+    ## General
+
+    * Dropping support for librdkafka below 0.11 (#247, @arnaud-lb)
+    * Update build matrix PHP 7.3 + nightly, librdkafka 1.x + master (#249, @arnaud-lb)
+    * Deprecating deprecated librdkafka functions (#266, #254, #251, @nick-zh)
+   </notes>
+
+  </release>
+  <release>
+   <date>2019-07-08</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.1.2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    * Fix build
+   </notes>
+  </release>
+  <release>
+   <date>2019-07-03</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.1.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    * Expose query watermark offsets (#219, @gytislakavicius)
+    * Support sending timestamp (epoch ms) in producev (#228, @lkm)
+    * Fix KafkaTopic::producev causing segfault on librdkafka 1.0.0 (#222, @Steveb-p)
+    * Fix version parsing (#224, @dariuskasiulevicius)
+   </notes>
+  </release>
+  <release>
+   <date>2019-04-18</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.1.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    * Added timestamp support (@mariam-japaridze)
+    * Added headers support (@martynaszaliaduonis, @dariuskasiulevicius)
+    * Added Rdkafka\Conf::setConsumeCb(), RdKafka\Conf::setOffsetCommitCb() (@tPl0ch)
+    * Added RdKafka\KafkaConsumer::getCommittedOffsets() (@dariuskasiulevicius)
+    * Fixed RdKafka\Message::errstr() (@JustBlackBird)
+    * Fixed reflection (@carusogabriel)
+    * Allow null key and null message (@awons)
+    * Dropped official PHP 5.4 / 5.5 support (@tPl0ch)
+    * Improved examples (@dbakiu, @Steveb-p)
+   </notes>
+  </release>
+  <release>
+   <date>2017-11-20</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.0.5</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+   * Fixed destruction order, fixes hangs during RdKafka\Consumer destruction
+   </notes>
+  </release>
+  <release>
+   <date>2017-08-16</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.0.4</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+   * Fixed destruction order, fixes hangs during RdKafka\Consumer destruction
+   * Added RdKafka\Conf::setStatsCb
+   </notes>
+  </release>
+  <release>
+   <date>2017-05-29</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.0.3</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+   * Reduced termination times
+   </notes>
+  </release>
+  <release>
+   <date>2017-05-23</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.0.2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+   * Fixed ConsumerTopic::consumeStop() hanging on PHP 5
+   </notes>
+  </release>
+  <release>
+   <date>2017-01-28</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+   * Fixed build on old gcc
+   </notes>
+  </release>
+  <release>
+   <date>2016-12-18</date>
+   <time>12:00:00</time>
+   <version>
+    <release>3.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+   * Unified code for PHP versions 5 and 7. This package builds and works on
+     PHP 5.3 through PHP 7.x.
+   </notes>
+  </release>
+  <release>
+   <date>2016-09-09</date>
+   <time>12:00:00</time>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    This version of rdkafka is indented for php version 5. To compile rdkafka for
+    newer versions of php, use the pecl package version 2.
+
+     * Added high level consumer: Rdkafka\KafkaConsumer (librdkafka 0.9)
+     * RD_KAFKA_VERSION now reports the runtime librdkafka version
+     * Added RD_KAFKA_BUILD_VERSION
+     * Export runtime-provided constants from librdkafka (librdkafka 0.9)
+     * Added rd_kafka_get_err_descs() (librdkafka 0.9)
+     * Improve reflection/arginfo
+     * Rdkafka::metadata() is now a deprecated alias to Rdkafka::getMetadata()
+     * Rdkafka::outqLen() is now a deprecated alias to Rdkafka::getOutQLen()
+     * Rdkafka now throws Rdkafka\Exception instances
+     * Added Rdkafka\Conf::setDefaultTopicConf() (librdkafka 0.9)
+     * Added Rdkafka\Conf::setDrMsgCb() (librdkafka 0.9)
+   </notes>
+  </release>
+  <release>
+   <date>2016-01-11</date>
+   <time>10:30:00</time>
+   <version>
+    <release>0.9.1</release>
+    <api>0.9.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    * Allow to build against librdkafka master/0.9.x
+   </notes>
+  </release>
+  <release>
+   <date>2016-01-09</date>
+   <time>14:00:00</time>
+   <version>
+    <release>0.9.0</release>
+    <api>0.9.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+   <notes>
+    * Metadata API
+    * Consistent partitioner
+    * Fix ZTS build
+   </notes>
+  </release>
+  <release>
+   <date>2015-05-13</date>
+   <time>16:26:12</time>
+   <version>
+    <release>0.0.2</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <notes>Fixed package</notes>
+  </release>
+ </changelog>
+</package>
