@@ -1,0 +1,16 @@
+commit 428a552c5219120ca456b462fd67cedd53b55325
+Author: Arnaud Le Blanc <arnaud.lb@gmail.com>
+Date:   Sat Jul 2 15:15:04 2022 +0200
+
+    Update release notes
+--- a/package.xml
++++ b/package.xml
+@@ -23,7 +23,7 @@
+  <license uri="http://opensource.org/licenses/mit-license.php">MIT License</license>
+  <notes>
+   ## Improvements
+-  - Ability to provide custom `librdkafka` path during install (#526, @Wirone)
++  - Ability to provide custom `librdkafka` path during pecl install (#526, @Wirone)
+  </notes>
+  <contents>
+   <dir name="/">

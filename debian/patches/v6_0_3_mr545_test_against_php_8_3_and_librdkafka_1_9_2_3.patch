@@ -1,0 +1,133 @@
+commit b21a905832202e9051d0627036a96135f9c34da5
+Author: Arnaud Le Blanc <arnaud.lb@gmail.com>
+Date:   Mon Dec 4 15:01:53 2023 +0100
+
+    Test against PHP 8.3 and librdkafka 1.9, 2.3 (#545)
+    
+    
+    
+    Co-authored-by: Dirk Adler <dirx@klitsche.de>
+--- a/rdkafka-6.0.3/.github/workflows/test.yml
++++ b/rdkafka-6.0.3/.github/workflows/test.yml
+@@ -14,15 +14,58 @@
+         strategy:
+           matrix:
+             include:
++              # Latest librdkafka 2.x with memcheck
++              - php: '8.3.0'
++                librdkafka: 'v1.9.2'
++                memcheck: '1'
++              - php: '8.2.0'
++                librdkafka: 'v1.9.2'
++                memcheck: '1'
+               - php: '8.1.0'
+-                librdkafka: 'v1.7.0'
++                librdkafka: 'v1.9.2'
++                memcheck: '1'
++
++              # Latest librdkafka 1.x with memcheck
++              - php: '8.3.0'
++                librdkafka: 'v1.9.2'
++                memcheck: '1'
++              - php: '8.2.0'
++                librdkafka: 'v1.9.2'
++                memcheck: '1'
++              - php: '8.1.0'
++                librdkafka: 'v1.9.2'
+                 memcheck: '1'
+               - php: '8.0.0'
+-                librdkafka: 'v1.7.0'
++                librdkafka: 'v1.9.2'
+                 memcheck: '1'
++
++              # Latest librdkafka 2.x
++              - php: '8.3.0'
++                librdkafka: 'v2.3.0'
++              - php: '8.2.0'
++                librdkafka: 'v2.3.0'
++              - php: '8.1.0'
++                librdkafka: 'v2.3.0'
++
++              # Latest librdkafka 1.x
++              - php: '8.3.0'
++                librdkafka: 'v1.9.2'
++              - php: '8.2.0'
++                librdkafka: 'v1.9.2'
++              - php: '8.1.0'
++                librdkafka: 'v1.9.2'
++              - php: '8.0.0'
++                librdkafka: 'v1.9.2'
+               - php: '7.4.0'
++                librdkafka: 'v1.9.2'
++              - php: '7.3.0'
++                librdkafka: 'v1.9.2'
++
++              # librdkafka 1.7.0
++              - php: '8.3.0'
++                librdkafka: 'v1.7.0'
++              - php: '8.2.0'
+                 librdkafka: 'v1.7.0'
+-                memcheck: '1'
+               - php: '8.1.0'
+                 librdkafka: 'v1.7.0'
+               - php: '8.0.0'
+@@ -31,6 +74,8 @@
+                 librdkafka: 'v1.7.0'
+               - php: '7.3.0'
+                 librdkafka: 'v1.7.0'
++
++              # librdkafka 1.6.1
+               - php: '8.1.0'
+                 librdkafka: 'v1.6.1'
+               - php: '8.0.0'
+@@ -39,6 +84,8 @@
+                 librdkafka: 'v1.6.1'
+               - php: '7.3.0'
+                 librdkafka: 'v1.6.1'
++
++              # librdkafka 1.5.3
+               - php: '8.1.0'
+                 librdkafka: 'v1.5.3'
+               - php: '8.0.0'
+@@ -47,6 +94,8 @@
+                 librdkafka: 'v1.5.3'
+               - php: '7.3.0'
+                 librdkafka: 'v1.5.3'
++
++              # librdkafka 1.4.4
+               - php: '8.1.0'
+                 librdkafka: 'v1.4.4'
+               - php: '8.0.0'
+@@ -55,6 +104,8 @@
+                 librdkafka: 'v1.4.4'
+               - php: '7.3.0'
+                 librdkafka: 'v1.4.4'
++
++              # librdkafka 1.0.1
+               - php: '8.1.0'
+                 librdkafka: 'v1.0.1'
+               - php: '8.0.0'
+@@ -63,6 +114,8 @@
+                 librdkafka: 'v1.0.1'
+               - php: '7.3.0'
+                 librdkafka: 'v1.0.1'
++
++              # librdkafka 0.11.6
+               - php: '8.1.0'
+                 librdkafka: 'v0.11.6'
+               - php: '8.0.0'
+@@ -77,6 +130,14 @@
+                 librdkafka: 'v0.11.6'
+               - php: '7.0.0'
+                 librdkafka: 'v0.11.6'
++
++              # librdkafka master (experimental, does not block PRs)
++              - php: '8.3.0'
++                librdkafka: 'master'
++                experimental: true
++              - php: '8.2.0'
++                librdkafka: 'master'
++                experimental: true
+               - php: '8.1.0'
+                 librdkafka: 'master'
+                 experimental: true

@@ -1,0 +1,853 @@
+commit 0aee7cf70a287d3e901787be144b7ff5a1441701 (HEAD)
+Author: Arnaud Le Blanc <arnaud.lb@gmail.com>
+Date:   Tue Jul 26 20:44:00 2022 +0200
+
+    Add private constructor on Metadata classes (#531)
+--- a/package.xml
++++ b/package.xml
+@@ -124,6 +124,11 @@
+     <file role="test" name="integration-tests-check.php"/>
+     <file role="test" name="kafka_error_exception.phpt"/>
+     <file role="test" name="message_headers.phpt"/>
++    <file role="test" name="metadata_001.phpt"/>
++    <file role="test" name="metadata_broker_001.phpt"/>
++    <file role="test" name="metadata_collection_001.phpt"/>
++    <file role="test" name="metadata_partition_001.phpt"/>
++    <file role="test" name="metadata_topic_001.phpt"/>
+     <file role="test" name="new_topic_with_conf.phpt"/>
+     <file role="test" name="pause_resume.phpt"/>
+     <file role="test" name="produce_consume.phpt"/>
+@@ -140,7 +145,8 @@
+     <file role="test" name="test0.phpt"/>
+     <file role="test" name="test_env.php.sample"/>
+     <file role="test" name="topic_conf.phpt"/>
+-    <file role="test" name="topic_partition.phpt"/>
++    <file role="test" name="topic_partition_001.phpt"/>
++    <file role="test" name="topic_partition_002.phpt"/>
+    </dir>
+   </dir>
+  </contents>
+--- a/rdkafka-6.0.3/metadata.c
++++ b/rdkafka-6.0.3/metadata.c
+@@ -107,7 +107,7 @@
+     array_init(&ary);
+ 
+     intern = rdkafka_get_debug_object(object_intern, object);
+-    if (!intern) {
++    if (!intern || !intern->metadata) {
+         return Z_ARRVAL(ary);
+     }
+ 
+--- a/rdkafka-6.0.3/metadata.stub.php
++++ b/rdkafka-6.0.3/metadata.stub.php
+@@ -10,6 +10,9 @@
+ 
+ class Metadata
+ {
++    /** @implementation-alias RdKafka::__construct */
++    private function __construct() {}
++
+     /** @tentative-return-type */
+     public function getOrigBrokerId(): int {}
+ 
+--- a/rdkafka-6.0.3/metadata_arginfo.h
++++ b/rdkafka-6.0.3/metadata_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 7bdf537cb18915955d6c3f1d4775dcc9fc43eb4a */
++ * Stub hash: 6c980079f802be29ef2c30e235a6071f5c0d628c */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_Metadata_getOrigBrokerId, 0, 0, IS_LONG, 0)
+ ZEND_END_ARG_INFO()
+@@ -13,6 +16,7 @@
+ #define arginfo_class_RdKafka_Metadata_getTopics arginfo_class_RdKafka_Metadata_getBrokers
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata, getOrigBrokerId);
+ ZEND_METHOD(RdKafka_Metadata, getOrigBrokerName);
+ ZEND_METHOD(RdKafka_Metadata, getBrokers);
+@@ -20,6 +24,7 @@
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata, getOrigBrokerId, arginfo_class_RdKafka_Metadata_getOrigBrokerId, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata, getOrigBrokerName, arginfo_class_RdKafka_Metadata_getOrigBrokerName, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata, getBrokers, arginfo_class_RdKafka_Metadata_getBrokers, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_broker.c
++++ b/rdkafka-6.0.3/metadata_broker.c
+@@ -94,7 +94,7 @@
+     array_init(&ary);
+ 
+     intern = rdkafka_get_debug_object(object_intern, object);
+-    if (!intern) {
++    if (!intern || !intern->metadata_broker) {
+         return Z_ARRVAL(ary);
+     }
+ 
+--- a/rdkafka-6.0.3/metadata_broker.stub.php
++++ b/rdkafka-6.0.3/metadata_broker.stub.php
+@@ -10,6 +10,9 @@
+ 
+ class Broker
+ {
++    /** @implementation-alias RdKafka::__construct */
++    private function __construct() {}
++
+     /** @tentative-return-type */
+     public function getId(): int {}
+ 
+--- a/rdkafka-6.0.3/metadata_broker_arginfo.h
++++ b/rdkafka-6.0.3/metadata_broker_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 53fa93c8908858d59ab75b39a77efdea9e843675 */
++ * Stub hash: 74c6ee55c31bb86f5bcf71a46607f31688ce71dd */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Broker___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_Metadata_Broker_getId, 0, 0, IS_LONG, 0)
+ ZEND_END_ARG_INFO()
+@@ -10,12 +13,14 @@
+ #define arginfo_class_RdKafka_Metadata_Broker_getPort arginfo_class_RdKafka_Metadata_Broker_getId
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Broker, getId);
+ ZEND_METHOD(RdKafka_Metadata_Broker, getHost);
+ ZEND_METHOD(RdKafka_Metadata_Broker, getPort);
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Broker_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Broker___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Broker, getId, arginfo_class_RdKafka_Metadata_Broker_getId, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Broker, getHost, arginfo_class_RdKafka_Metadata_Broker_getHost, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Broker, getPort, arginfo_class_RdKafka_Metadata_Broker_getPort, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_broker_legacy_arginfo.h
++++ b/rdkafka-6.0.3/metadata_broker_legacy_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 53fa93c8908858d59ab75b39a77efdea9e843675 */
++ * Stub hash: 74c6ee55c31bb86f5bcf71a46607f31688ce71dd */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Broker___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Broker_getId, 0, 0, 0)
+ ZEND_END_ARG_INFO()
+@@ -9,12 +12,14 @@
+ #define arginfo_class_RdKafka_Metadata_Broker_getPort arginfo_class_RdKafka_Metadata_Broker_getId
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Broker, getId);
+ ZEND_METHOD(RdKafka_Metadata_Broker, getHost);
+ ZEND_METHOD(RdKafka_Metadata_Broker, getPort);
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Broker_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Broker___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Broker, getId, arginfo_class_RdKafka_Metadata_Broker_getId, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Broker, getHost, arginfo_class_RdKafka_Metadata_Broker_getHost, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Broker, getPort, arginfo_class_RdKafka_Metadata_Broker_getPort, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_collection.c
++++ b/rdkafka-6.0.3/metadata_collection.c
+@@ -101,7 +101,7 @@
+     array_init(&ary);
+ 
+     intern = rdkafka_get_debug_object(object_intern, object);
+-    if (!intern) {
++    if (!intern || !intern->items) {
+         return Z_ARRVAL(ary);
+     }
+     
+--- a/rdkafka-6.0.3/metadata_collection.stub.php
++++ b/rdkafka-6.0.3/metadata_collection.stub.php
+@@ -10,6 +10,9 @@
+ 
+ class Collection implements \Countable, \Iterator
+ {
++    /** @implementation-alias RdKafka::__construct */
++    private function __construct() {}
++
+     /** @tentative-return-type */
+     public function count(): int {}
+ 
+--- a/rdkafka-6.0.3/metadata_collection_arginfo.h
++++ b/rdkafka-6.0.3/metadata_collection_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: a84f8bd542d46b72179ff6aa0d9d17bed530a2de */
++ * Stub hash: 43c071a00a4c0beb6b5c1f8f685e29b746c2d3fb */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Collection___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_Metadata_Collection_count, 0, 0, IS_LONG, 0)
+ ZEND_END_ARG_INFO()
+@@ -18,6 +21,7 @@
+ ZEND_END_ARG_INFO()
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Collection, count);
+ ZEND_METHOD(RdKafka_Metadata_Collection, current);
+ ZEND_METHOD(RdKafka_Metadata_Collection, key);
+@@ -27,6 +31,7 @@
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Collection_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Collection___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Collection, count, arginfo_class_RdKafka_Metadata_Collection_count, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Collection, current, arginfo_class_RdKafka_Metadata_Collection_current, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Collection, key, arginfo_class_RdKafka_Metadata_Collection_key, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_collection_legacy_arginfo.h
++++ b/rdkafka-6.0.3/metadata_collection_legacy_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: a84f8bd542d46b72179ff6aa0d9d17bed530a2de */
++ * Stub hash: 43c071a00a4c0beb6b5c1f8f685e29b746c2d3fb */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Collection___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Collection_count, 0, 0, 0)
+ ZEND_END_ARG_INFO()
+@@ -15,6 +18,7 @@
+ #define arginfo_class_RdKafka_Metadata_Collection_valid arginfo_class_RdKafka_Metadata_Collection_count
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Collection, count);
+ ZEND_METHOD(RdKafka_Metadata_Collection, current);
+ ZEND_METHOD(RdKafka_Metadata_Collection, key);
+@@ -24,6 +28,7 @@
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Collection_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Collection___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Collection, count, arginfo_class_RdKafka_Metadata_Collection_count, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Collection, current, arginfo_class_RdKafka_Metadata_Collection_current, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Collection, key, arginfo_class_RdKafka_Metadata_Collection_key, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_legacy_arginfo.h
++++ b/rdkafka-6.0.3/metadata_legacy_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 7bdf537cb18915955d6c3f1d4775dcc9fc43eb4a */
++ * Stub hash: 6c980079f802be29ef2c30e235a6071f5c0d628c */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_getOrigBrokerId, 0, 0, 0)
+ ZEND_END_ARG_INFO()
+@@ -11,6 +14,7 @@
+ #define arginfo_class_RdKafka_Metadata_getTopics arginfo_class_RdKafka_Metadata_getOrigBrokerId
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata, getOrigBrokerId);
+ ZEND_METHOD(RdKafka_Metadata, getOrigBrokerName);
+ ZEND_METHOD(RdKafka_Metadata, getBrokers);
+@@ -18,6 +22,7 @@
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata, getOrigBrokerId, arginfo_class_RdKafka_Metadata_getOrigBrokerId, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata, getOrigBrokerName, arginfo_class_RdKafka_Metadata_getOrigBrokerName, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata, getBrokers, arginfo_class_RdKafka_Metadata_getBrokers, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_partition.c
++++ b/rdkafka-6.0.3/metadata_partition.c
+@@ -95,7 +95,7 @@
+     array_init(&ary);
+ 
+     intern = rdkafka_get_debug_object(object_intern, object);
+-    if (!intern) {
++    if (!intern || !intern->metadata_partition) {
+         return Z_ARRVAL(ary);
+     }
+ 
+--- a/rdkafka-6.0.3/metadata_partition.stub.php
++++ b/rdkafka-6.0.3/metadata_partition.stub.php
+@@ -10,6 +10,9 @@
+ 
+ class Partition
+ {
++    /** @implementation-alias RdKafka::__construct */
++    private function __construct() {}
++
+     /** @tentative-return-type */
+     public function getId(): int {}
+ 
+--- a/rdkafka-6.0.3/metadata_partition_arginfo.h
++++ b/rdkafka-6.0.3/metadata_partition_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 4c02c5ac3a6240ab8cbc90451bdc54a3de2c2d2f */
++ * Stub hash: ce824cf273ec8fec1fe3b6eaac015a51f3e9dc6b */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Partition___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_Metadata_Partition_getId, 0, 0, IS_LONG, 0)
+ ZEND_END_ARG_INFO()
+@@ -14,6 +17,7 @@
+ #define arginfo_class_RdKafka_Metadata_Partition_getIsrs arginfo_class_RdKafka_Metadata_Partition_getReplicas
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Partition, getId);
+ ZEND_METHOD(RdKafka_Metadata_Partition, getErr);
+ ZEND_METHOD(RdKafka_Metadata_Partition, getLeader);
+@@ -22,6 +26,7 @@
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Partition_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Partition___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Partition, getId, arginfo_class_RdKafka_Metadata_Partition_getId, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Partition, getErr, arginfo_class_RdKafka_Metadata_Partition_getErr, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Partition, getLeader, arginfo_class_RdKafka_Metadata_Partition_getLeader, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_partition_legacy_arginfo.h
++++ b/rdkafka-6.0.3/metadata_partition_legacy_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 4c02c5ac3a6240ab8cbc90451bdc54a3de2c2d2f */
++ * Stub hash: ce824cf273ec8fec1fe3b6eaac015a51f3e9dc6b */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Partition___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Partition_getId, 0, 0, 0)
+ ZEND_END_ARG_INFO()
+@@ -13,6 +16,7 @@
+ #define arginfo_class_RdKafka_Metadata_Partition_getIsrs arginfo_class_RdKafka_Metadata_Partition_getId
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Partition, getId);
+ ZEND_METHOD(RdKafka_Metadata_Partition, getErr);
+ ZEND_METHOD(RdKafka_Metadata_Partition, getLeader);
+@@ -21,6 +25,7 @@
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Partition_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Partition___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Partition, getId, arginfo_class_RdKafka_Metadata_Partition_getId, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Partition, getErr, arginfo_class_RdKafka_Metadata_Partition_getErr, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Partition, getLeader, arginfo_class_RdKafka_Metadata_Partition_getLeader, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_topic.c
++++ b/rdkafka-6.0.3/metadata_topic.c
+@@ -102,7 +102,7 @@
+     array_init(&ary);
+ 
+     intern = rdkafka_get_debug_object(object_intern, object);
+-    if (!intern) {
++    if (!intern || !intern->metadata_topic) {
+         return Z_ARRVAL(ary);
+     }
+ 
+--- a/rdkafka-6.0.3/metadata_topic.stub.php
++++ b/rdkafka-6.0.3/metadata_topic.stub.php
+@@ -10,6 +10,9 @@
+ 
+ class Topic
+ {
++    /** @implementation-alias RdKafka::__construct */
++    private function __construct() {}
++
+     /** @tentative-return-type */
+     public function getTopic(): string {}
+ 
+--- a/rdkafka-6.0.3/metadata_topic_arginfo.h
++++ b/rdkafka-6.0.3/metadata_topic_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 90ddb49b26a651772f9b71a1233435f2a502af6d */
++ * Stub hash: 04fd71ae954bd0a09730d401c8160574e1045369 */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Topic___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_RdKafka_Metadata_Topic_getTopic, 0, 0, IS_STRING, 0)
+ ZEND_END_ARG_INFO()
+@@ -11,12 +14,14 @@
+ ZEND_END_ARG_INFO()
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Topic, getTopic);
+ ZEND_METHOD(RdKafka_Metadata_Topic, getErr);
+ ZEND_METHOD(RdKafka_Metadata_Topic, getPartitions);
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Topic_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Topic___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Topic, getTopic, arginfo_class_RdKafka_Metadata_Topic_getTopic, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Topic, getErr, arginfo_class_RdKafka_Metadata_Topic_getErr, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Topic, getPartitions, arginfo_class_RdKafka_Metadata_Topic_getPartitions, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/metadata_topic_legacy_arginfo.h
++++ b/rdkafka-6.0.3/metadata_topic_legacy_arginfo.h
+@@ -1,5 +1,8 @@
+ /* This is a generated file, edit the .stub.php file instead.
+- * Stub hash: 90ddb49b26a651772f9b71a1233435f2a502af6d */
++ * Stub hash: 04fd71ae954bd0a09730d401c8160574e1045369 */
++
++ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Topic___construct, 0, 0, 0)
++ZEND_END_ARG_INFO()
+ 
+ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_RdKafka_Metadata_Topic_getTopic, 0, 0, 0)
+ ZEND_END_ARG_INFO()
+@@ -9,12 +12,14 @@
+ #define arginfo_class_RdKafka_Metadata_Topic_getPartitions arginfo_class_RdKafka_Metadata_Topic_getTopic
+ 
+ 
++ZEND_METHOD(RdKafka, __construct);
+ ZEND_METHOD(RdKafka_Metadata_Topic, getTopic);
+ ZEND_METHOD(RdKafka_Metadata_Topic, getErr);
+ ZEND_METHOD(RdKafka_Metadata_Topic, getPartitions);
+ 
+ 
+ static const zend_function_entry class_RdKafka_Metadata_Topic_methods[] = {
++	ZEND_MALIAS(RdKafka, __construct, __construct, arginfo_class_RdKafka_Metadata_Topic___construct, ZEND_ACC_PRIVATE)
+ 	ZEND_ME(RdKafka_Metadata_Topic, getTopic, arginfo_class_RdKafka_Metadata_Topic_getTopic, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Topic, getErr, arginfo_class_RdKafka_Metadata_Topic_getErr, ZEND_ACC_PUBLIC)
+ 	ZEND_ME(RdKafka_Metadata_Topic, getPartitions, arginfo_class_RdKafka_Metadata_Topic_getPartitions, ZEND_ACC_PUBLIC)
+--- a/rdkafka-6.0.3/package.xml
++++ b/rdkafka-6.0.3/package.xml
+@@ -124,6 +124,11 @@
+     <file role="test" name="integration-tests-check.php"/>
+     <file role="test" name="kafka_error_exception.phpt"/>
+     <file role="test" name="message_headers.phpt"/>
++    <file role="test" name="metadata_001.phpt"/>
++    <file role="test" name="metadata_broker_001.phpt"/>
++    <file role="test" name="metadata_collection_001.phpt"/>
++    <file role="test" name="metadata_partition_001.phpt"/>
++    <file role="test" name="metadata_topic_001.phpt"/>
+     <file role="test" name="new_topic_with_conf.phpt"/>
+     <file role="test" name="pause_resume.phpt"/>
+     <file role="test" name="produce_consume.phpt"/>
+@@ -140,7 +145,8 @@
+     <file role="test" name="test0.phpt"/>
+     <file role="test" name="test_env.php.sample"/>
+     <file role="test" name="topic_conf.phpt"/>
+-    <file role="test" name="topic_partition.phpt"/>
++    <file role="test" name="topic_partition_001.phpt"/>
++    <file role="test" name="topic_partition_002.phpt"/>
+    </dir>
+   </dir>
+  </contents>
+--- a/rdkafka-6.0.3/php_rdkafka_priv.h
++++ b/rdkafka-6.0.3/php_rdkafka_priv.h
+@@ -67,7 +67,7 @@
+ 
+ #define Z_RDKAFKA_PROP_OBJ(object) object
+ 
+-#define rdkafka_get_debug_object(type, object) get_object(object)
++#define rdkafka_get_debug_object(type, object) php_kafka_from_obj(type, Z_OBJ_P(object))
+ 
+ #if PHP_MINOR_VERSION < 3
+ /* Allocates object type and zeros it, but not the properties.
+--- /dev/null
++++ b/rdkafka-6.0.3/tests/metadata_001.phpt
+@@ -0,0 +1,41 @@
++--TEST--
++Metadata 001
++--FILE--
++<?php
++
++// Metadata can not be in instantiated with `new`
++try {
++    $m = new RdKafka\Metadata();
++} catch (Error $e) {
++    echo $e->getMessage(), "\n";
++}
++
++// Metadata can be sub-classed and instantiated for the purpose of mocking
++class M extends RdKafka\Metadata
++{
++    public function __construct()
++    {
++    }
++}
++
++$m = new M();
++var_dump($m);
++
++// Metadata can be instantied via reflection
++$m = (new ReflectionClass(RdKafka\Metadata::class))->newInstanceWithoutConstructor();
++var_dump($m);
++try {
++    $m->getTopics();
++} catch(Exception $e) {
++    echo $e->getMessage(), "\n";
++}
++?>
++==DONE==
++--EXPECTF--
++Call to private RdKafka\Metadata::__construct() from %rglobal scope|invalid context%r
++object(M)#%d (0) {
++}
++object(RdKafka\Metadata)#%d (0) {
++}
++RdKafka\Metadata::__construct() has not been called
++==DONE==
+--- /dev/null
++++ b/rdkafka-6.0.3/tests/metadata_broker_001.phpt
+@@ -0,0 +1,41 @@
++--TEST--
++Metadata\Broker 001
++--FILE--
++<?php
++
++// Metadata\Broker can not be in instantiated with `new`
++try {
++    $m = new RdKafka\Metadata\Broker();
++} catch (Error $e) {
++    echo $e->getMessage(), "\n";
++}
++
++// Metadata\Broker can be sub-classed and instantiated for the purpose of mocking
++class M extends RdKafka\Metadata\Broker
++{
++    public function __construct()
++    {
++    }
++}
++
++$i = new M();
++var_dump($i);
++
++// Metadata\Broker can be instantied via reflection
++$i = (new ReflectionClass(RdKafka\Metadata\Broker::class))->newInstanceWithoutConstructor();
++var_dump($i);
++try {
++    $i->getId();
++} catch(Exception $e) {
++    echo $e->getMessage(), "\n";
++}
++?>
++==DONE==
++--EXPECTF--
++Call to private RdKafka\Metadata\Broker::__construct() from %rglobal scope|invalid context%r
++object(M)#%d (0) {
++}
++object(RdKafka\Metadata\Broker)#%d (0) {
++}
++RdKafka\Metadata\Broker::__construct() has not been called
++==DONE==
+--- /dev/null
++++ b/rdkafka-6.0.3/tests/metadata_collection_001.phpt
+@@ -0,0 +1,48 @@
++--TEST--
++Metadata\Collection 001
++--FILE--
++<?php
++
++// Metadata\Collection can not be in instantiated with `new`
++try {
++    new RdKafka\Metadata\Collection();
++} catch (Error $e) {
++    echo $e->getMessage(), "\n";
++}
++
++// Metadata\Collection can be sub-classed and instantiated for the purpose of mocking
++class M extends RdKafka\Metadata\Collection
++{
++    public function __construct()
++    {
++    }
++}
++
++$i = new M();
++var_dump($i);
++
++// Metadata\Collection can be instantied via reflection
++$i = (new ReflectionClass(RdKafka\Metadata\Collection::class))->newInstanceWithoutConstructor();
++var_dump($i);
++try {
++    $i->count();
++} catch(Exception $e) {
++    echo $e->getMessage(), "\n";
++}
++try {
++    foreach ($i as $_) {
++    }
++} catch(Exception $e) {
++    echo $e->getMessage(), "\n";
++}
++?>
++==DONE==
++--EXPECTF--
++Call to private RdKafka\Metadata\Collection::__construct() from %rglobal scope|invalid context%r
++object(M)#%d (0) {
++}
++object(RdKafka\Metadata\Collection)#%d (0) {
++}
++RdKafka\Metadata\Collection::__construct() has not been called
++RdKafka\Metadata\Collection::__construct() has not been called
++==DONE==
+--- /dev/null
++++ b/rdkafka-6.0.3/tests/metadata_partition_001.phpt
+@@ -0,0 +1,41 @@
++--TEST--
++Metadata\Partition 001
++--FILE--
++<?php
++
++// Metadata\Partition can not be in instantiated with `new`
++try {
++    new RdKafka\Metadata\Partition();
++} catch (Error $e) {
++    echo $e->getMessage(), "\n";
++}
++
++// Metadata\Partition can be sub-classed and instantiated for the purpose of mocking
++class M extends RdKafka\Metadata\Partition
++{
++    public function __construct()
++    {
++    }
++}
++
++$i = new M();
++var_dump($i);
++
++// Metadata\Partition can be instantied via reflection
++$i = (new ReflectionClass(RdKafka\Metadata\Partition::class))->newInstanceWithoutConstructor();
++var_dump($i);
++try {
++    $i->getId();
++} catch(Exception $e) {
++    echo $e->getMessage(), "\n";
++}
++?>
++==DONE==
++--EXPECTF--
++Call to private RdKafka\Metadata\Partition::__construct() from %rglobal scope|invalid context%r
++object(M)#%d (0) {
++}
++object(RdKafka\Metadata\Partition)#%d (0) {
++}
++RdKafka\Metadata\Partition::__construct() has not been called
++==DONE==
+--- /dev/null
++++ b/rdkafka-6.0.3/tests/metadata_topic_001.phpt
+@@ -0,0 +1,41 @@
++--TEST--
++Metadata\Topic 001
++--FILE--
++<?php
++
++// Metadata\Topic can not be in instantiated with `new`
++try {
++    new RdKafka\Metadata\Topic();
++} catch (Error $e) {
++    echo $e->getMessage(), "\n";
++}
++
++// Metadata\Topic can be sub-classed and instantiated for the purpose of mocking
++class M extends RdKafka\Metadata\Topic
++{
++    public function __construct()
++    {
++    }
++}
++
++$i = new M();
++var_dump($i);
++
++// Metadata\Topic can be instantied via reflection
++$i = (new ReflectionClass(RdKafka\Metadata\Topic::class))->newInstanceWithoutConstructor();
++var_dump($i);
++try {
++    $i->getTopic();
++} catch(Exception $e) {
++    echo $e->getMessage(), "\n";
++}
++?>
++==DONE==
++--EXPECTF--
++Call to private RdKafka\Metadata\Topic::__construct() from %rglobal scope|invalid context%r
++object(M)#%d (0) {
++}
++object(RdKafka\Metadata\Topic)#%d (0) {
++}
++RdKafka\Metadata\Topic::__construct() has not been called
++==DONE==
+--- a/rdkafka-6.0.3/tests/topic_partition.phpt
++++ /dev/null
+@@ -1,56 +0,0 @@
+---TEST--
+-RdKafka\TopicPartition
+---SKIPIF--
+-<?php
+-if (!class_exists('RdKafka\TopicPartition')) {
+-    echo 'skip';
+-}
+-?>
+---FILE--
+-<?php
+-
+-$topar = new RdKafka\TopicPartition("test", RD_KAFKA_PARTITION_UA, 42);
+-
+-var_dump($topar);
+-
+-var_dump(array(
+-    "topic" => $topar->getTopic(),
+-    "partition" => $topar->getPartition(),
+-    "offset" => $topar->getOffset(),
+-));
+-
+-$topar
+-    ->setTopic("foo")
+-    ->setPartition(123)
+-    ->setOffset(43);
+-
+-var_dump($topar);
+---EXPECT--
+-object(RdKafka\TopicPartition)#1 (4) {
+-  ["topic"]=>
+-  string(4) "test"
+-  ["partition"]=>
+-  int(-1)
+-  ["offset"]=>
+-  int(42)
+-  ["err"]=>
+-  int(0)
+-}
+-array(3) {
+-  ["topic"]=>
+-  string(4) "test"
+-  ["partition"]=>
+-  int(-1)
+-  ["offset"]=>
+-  int(42)
+-}
+-object(RdKafka\TopicPartition)#1 (4) {
+-  ["topic"]=>
+-  string(3) "foo"
+-  ["partition"]=>
+-  int(123)
+-  ["offset"]=>
+-  int(43)
+-  ["err"]=>
+-  int(0)
+-}
+--- /dev/null
++++ b/rdkafka-6.0.3/tests/topic_partition_001.phpt
+@@ -0,0 +1,56 @@
++--TEST--
++RdKafka\TopicPartition 001
++--SKIPIF--
++<?php
++if (!class_exists('RdKafka\TopicPartition')) {
++    echo 'skip';
++}
++?>
++--FILE--
++<?php
++
++$topar = new RdKafka\TopicPartition("test", RD_KAFKA_PARTITION_UA, 42);
++
++var_dump($topar);
++
++var_dump(array(
++    "topic" => $topar->getTopic(),
++    "partition" => $topar->getPartition(),
++    "offset" => $topar->getOffset(),
++));
++
++$topar
++    ->setTopic("foo")
++    ->setPartition(123)
++    ->setOffset(43);
++
++var_dump($topar);
++--EXPECT--
++object(RdKafka\TopicPartition)#1 (4) {
++  ["topic"]=>
++  string(4) "test"
++  ["partition"]=>
++  int(-1)
++  ["offset"]=>
++  int(42)
++  ["err"]=>
++  int(0)
++}
++array(3) {
++  ["topic"]=>
++  string(4) "test"
++  ["partition"]=>
++  int(-1)
++  ["offset"]=>
++  int(42)
++}
++object(RdKafka\TopicPartition)#1 (4) {
++  ["topic"]=>
++  string(3) "foo"
++  ["partition"]=>
++  int(123)
++  ["offset"]=>
++  int(43)
++  ["err"]=>
++  int(0)
++}
+--- /dev/null
++++ b/rdkafka-6.0.3/tests/topic_partition_002.phpt
+@@ -0,0 +1,39 @@
++--TEST--
++RdKafka\TopicPartition 002
++--SKIPIF--
++<?php
++if (!class_exists('RdKafka\TopicPartition')) {
++    echo 'skip';
++}
++?>
++--FILE--
++<?php
++
++// TopicPartition can be sub-classed and instantiated for the purpose of mocking
++class M extends RdKafka\TopicPartition
++{
++    public function __construct()
++    {
++    }
++}
++
++$i = new M();
++var_dump($i);
++
++// TopicPartition can be instantied via reflection
++$i = (new ReflectionClass(RdKafka\TopicPartition::class))->newInstanceWithoutConstructor();
++var_dump($i);
++try {
++    $i->getTopic();
++} catch(Exception $e) {
++    echo $e->getMessage(), "\n";
++}
++?>
++==DONE==
++--EXPECTF--
++object(M)#%d (0) {
++}
++object(RdKafka\TopicPartition)#%d (0) {
++}
++RdKafka\TopicPartition::__construct() has not been called
++==DONE==
+--- a/rdkafka-6.0.3/topic_partition.c
++++ b/rdkafka-6.0.3/topic_partition.c
+@@ -100,7 +100,7 @@
+ 
+     intern = rdkafka_get_debug_object(object_intern, object);
+ 
+-    if (!intern) {
++    if (!intern || !intern->topic) {
+         return Z_ARRVAL(ary);
+     }
+ 

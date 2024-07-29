@@ -1,0 +1,106 @@
+commit 413f7cce13d9456bd9bbc30402da86143574cc10
+Author: Arnaud Le Blanc <arnaud.lb@gmail.com>
+Date:   Sat Jul 2 15:10:53 2022 +0200
+
+    Automation
+--- /dev/null
++++ b/rdkafka-6.0.3/.github/workflows/release.yml
+@@ -0,0 +1,30 @@
++# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
++
++name: "Create release"
++
++on:
++  push:
++    tags:
++      - '*'
++
++concurrency: release
++
++jobs:
++  create_release:
++    name: "Create release"
++    runs-on: "ubuntu-latest"
++
++    steps:
++      - name: "Checkout"
++        uses: actions/checkout@v3
++
++      - name: "Generate release notes"
++        run: ./tools/extract-release-notes.php > ${{ github.workspace }}-CHANGELOG.txt
++
++      - name: "Create release"
++        uses: softprops/action-gh-release@v1
++        with:
++          # token: ${{ secrets.BOT_TOKEN }}
++          draft: true
++          discussion_category_name: "General"
++          body_path: ${{ github.workspace }}-CHANGELOG.txt
+--- /dev/null
++++ b/rdkafka-6.0.3/tools/extract-release-notes.php
+@@ -0,0 +1,29 @@
++#!/usr/bin/env php
++<?php
++
++const NS = 'http://pear.php.net/dtd/package-2.1';
++
++$doc = new DOMDocument();
++if (!$doc->load(__DIR__.'/../package.xml')) {
++    throw new \Exception('Failed loading package.xml');
++}
++
++$notesElem = findOneElement($doc, '/ns:package/ns:notes');
++echo $notesElem->textContent;
++
++function findOneElement(DOMDocument $doc, string $path): DOMElement
++{
++    $xp = new DOMXPath($doc, false);
++    $xp->registerNamespace('ns', NS);
++
++    $list = $xp->evaluate($path);
++    if ($list->length !== 1) {
++        throw new \Exception(sprintf(
++            'XPath expression %s expected to find 1 element, but found %d',
++            $path,
++            $list->length,
++        ));
++    }
++
++    return $list->item(0);
++}
+--- /dev/null
++++ b/rdkafka-6.0.3/tools/prepare-release.sh
+@@ -0,0 +1,33 @@
++#!/bin/bash
++
++set -e
++
++version="$1"
++baseBranch=6.x
++
++if [[ -z "$version" ]]; then
++    printf "Missing version parameter" >&2
++    printf "Usage: %s <version>\n" "$0" >&2
++    exit 1
++fi
++
++echo "Updating package.xml"
++./tools/new-package-release.php "$1"
++pecl package-validate
++
++echo "Updating PHP_RDKAFKA_VERSION"
++sed -i 's/#define PHP_RDKAFKA_VERSION.*/#define PHP_RDKAFKA_VERSION "'"$1"'"/' php_rdkafka.h
++
++echo "Printing diff"
++git diff
++
++read -p "Commit and send pull request for version $version ? [n/N]" -n 1 -r
++echo
++if ! [[ $REPLY =~ ^[Yy]$ ]]; then
++    echo "Ok, aborting"
++    exit 1
++fi
++
++git checkout -b "release/$version" "$baseBranch"
++git commit package.xml php_rdkafka.h -m "$1"
++gh pr create --fill --label release --base "$baseBranch"

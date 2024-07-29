@@ -17,7 +17,6 @@ Homepage: https://pecl.php.net/package/rdkafka
 Package: php-rdkafka
 Priority: optional
 Section: php
-Maintainer: Habr Team <servers@habr.team>
 Architecture: amd64
 Pre-Depends: php-common (>= 2:69~)
 Depends: ${misc:Depends},
