@@ -33,4 +33,4 @@ Requirements
 Install
 --------
 
-For detailed instruction how to build just see [.gitlab-ci.yml](.gitlab-ci.yml) manifest, it's simple.
+For detailed instruction how to build just see [Makefile](Makefile), it's simple.
