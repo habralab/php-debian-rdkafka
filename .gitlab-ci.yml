@@ -8,11 +8,7 @@ stages:
 run-dpkg-buildpackage:
   stage: build
   script:
-    - mkdir -p _build/src
-    - mv rdkafka-* _build/src/
-    - mv debian _build/src/
-    - mv package*.xml _build/src/
-    - cd _build/src && dpkg-buildpackage -b -rfakeroot -us -uc
+    - make build
   only:
     - /^debian/.*$/
   artifacts:
